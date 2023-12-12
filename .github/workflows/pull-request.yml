@@ -18,8 +18,8 @@ jobs:
     
     env:
       PROJECT_NAME: "Angor-Browse"
-      SOLUTION_PATH: "src/angor.browse.sln"
-      PROJECT_PATH: "src/angor.browse/angor.browse.csproj"
+      SOLUTION_PATH: "src/Angor.Browse.sln"
+      PROJECT_PATH: "src/Angor.Browse/Angor.Browse.csproj"
       BUILD_CONFIGURATION: "Release"
 
     steps:

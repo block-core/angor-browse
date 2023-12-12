@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34321.82
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "angor.browse", "angor.browse\angor.browse.csproj", "{C45424B2-A39B-48FE-903E-6FFC41A6FC91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Angor.Browse", "Angor.Browse\Angor.Browse.csproj", "{C45424B2-A39B-48FE-903E-6FFC41A6FC91}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Angor.Browse.BlockcoreDns", "Angor.Browse.BlockcoreDns\Angor.Browse.BlockcoreDns.csproj", "{18EBA993-7516-4981-80AF-7971CFF92262}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Angor.Browse.BlockcoreWallet", "Angor.Browse.BlockcoreWallet\Angor.Browse.BlockcoreWallet.csproj", "{CA7D6441-BB04-433F-8BB2-C37EEA63C830}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Angor.Browse.UniSatWallet", "Angor.Browse.UniSatWallet\Angor.Browse.UniSatWallet.csproj", "{64F79700-5B48-47A9-8F45-EC65FA9C370B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{C45424B2-A39B-48FE-903E-6FFC41A6FC91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C45424B2-A39B-48FE-903E-6FFC41A6FC91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C45424B2-A39B-48FE-903E-6FFC41A6FC91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18EBA993-7516-4981-80AF-7971CFF92262}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18EBA993-7516-4981-80AF-7971CFF92262}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18EBA993-7516-4981-80AF-7971CFF92262}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18EBA993-7516-4981-80AF-7971CFF92262}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA7D6441-BB04-433F-8BB2-C37EEA63C830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA7D6441-BB04-433F-8BB2-C37EEA63C830}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA7D6441-BB04-433F-8BB2-C37EEA63C830}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA7D6441-BB04-433F-8BB2-C37EEA63C830}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64F79700-5B48-47A9-8F45-EC65FA9C370B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64F79700-5B48-47A9-8F45-EC65FA9C370B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64F79700-5B48-47A9-8F45-EC65FA9C370B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64F79700-5B48-47A9-8F45-EC65FA9C370B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
