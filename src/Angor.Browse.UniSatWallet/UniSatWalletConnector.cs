@@ -19,8 +19,6 @@ namespace Angor.Browse.UniSatWallet
 	{
 		private readonly Lazy<Task<IJSObjectReference>> moduleTask;
 
-		//public static event Func<Task>? ConnectEvent;
-		//public static event Func<Task>? DisconnectEvent;
 
 		public UniSatWalletConnector(IJSRuntime jsRuntime)
 		{
@@ -32,19 +30,6 @@ namespace Angor.Browse.UniSatWallet
 			return jsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Angor.Browse.UniSatWallet/UniSatWallet.js");
 		}
 
-		public async ValueTask ConnectUniSatWallet()
-		{
-			var module = await moduleTask.Value;
-			try
-			{
-				await module.InvokeVoidAsync("checkUniSatWallet");
-			}
-			catch (Exception ex)
-			{
-				HandleExceptions(ex);
-				throw;
-			}
-		}
 
 		public async ValueTask<bool> HasUniSatWallet()
 		{
@@ -60,12 +45,13 @@ namespace Angor.Browse.UniSatWallet
 			}
 		}
 
-		public async ValueTask<bool> IsSiteConnected()
+		public async ValueTask<string> ConnectUniSatWallet()
 		{
 			var module = await moduleTask.Value;
 			try
 			{
-				return await module.InvokeAsync<bool>("isSiteConnected");
+				var result = await module.InvokeAsync<string>("connectUniSatWallet");
+				return result;
 			}
 			catch (Exception ex)
 			{
@@ -74,90 +60,13 @@ namespace Angor.Browse.UniSatWallet
 			}
 		}
 
-        public async ValueTask<UniSatWalletSendFundsOut?> SendCoins(UniSatWalletSendFunds data)
-        {
-            var input = JsonSerializer.Serialize(data);
-            var module = await moduleTask.Value;
-            try
-            {
-                var result = await module.InvokeAsync<string>("sendCoins", input);
-                return JsonSerializer.Deserialize<UniSatWalletSendFundsOut?>(result);
-            }
-            catch (Exception ex)
-            {
-                HandleExceptions(ex);
-                throw;
-            }
-        }
-
-        public async ValueTask<UniSatWalletSwapCoinsOut?> SwapCoins(UniSatWalletSwapCoins data)
-        {
-            var input = JsonSerializer.Serialize(data);
-            var module = await moduleTask.Value;
-            try
-            {
-                var result = await module.InvokeAsync<string>("swapCoins", input);
-                return JsonSerializer.Deserialize<UniSatWalletSwapCoinsOut?>(result);
-            }
-            catch (Exception ex)
-            {
-                HandleExceptions(ex);
-                throw;
-            }
-        }
-
-        public async ValueTask<UniSatWalletMessageOut?> GetWallet(string? key = null)
-        {
-            var module = await moduleTask.Value;
-            try
-            {
-                var result = await module.InvokeAsync<string>("getWallet", key);
-                return JsonSerializer.Deserialize<UniSatWalletMessageOut?>(result);
-
-            }
-            catch (Exception ex)
-            {
-                HandleExceptions(ex);
-                throw;
-            }
-        }
-
-        public async ValueTask<string> GetSwapKey(string key, string walletId, string accountId, bool includePrivateKey)
-        {
-            var module = await moduleTask.Value;
-            try
-            {
-                return await module.InvokeAsync<string>("getSwapKey", key, walletId, accountId, includePrivateKey);
-            }
-            catch (Exception ex)
-            {
-                HandleExceptions(ex);
-                throw;
-            }
-        }
-
-        public async ValueTask<string> GetSwapSecret(string key, string walletId, string accountId, string message)
-        {
-            var module = await moduleTask.Value;
-            try
-            {
-                return await module.InvokeAsync<string>("getSwapSecret", key, walletId, accountId, message);
-            }
-            catch (Exception ex)
-            {
-                HandleExceptions(ex);
-                throw;
-            }
-        }
-
-        public async ValueTask<string> SignMessageAnyAccount(string value)
+		public async ValueTask<string> GetUniSatAccounts()
 		{
 			var module = await moduleTask.Value;
 			try
 			{
-				return await module.InvokeAsync<string>("signMessageAnyAccount", value);
-
-
+				var result = await module.InvokeAsync<string>("getUniSatAccounts");
+				return result;
 			}
 			catch (Exception ex)
 			{
@@ -166,12 +75,13 @@ namespace Angor.Browse.UniSatWallet
 			}
 		}
 
-		public async ValueTask<string> SignMessageAnyAccountJson(string value)
+		public async ValueTask<string> GetUniSatNetwork()
 		{
 			var module = await moduleTask.Value;
 			try
 			{
-				return await module.InvokeAsync<string>("signMessageAnyAccountJson", value);
+				var result = await module.InvokeAsync<string>("getUniSatNetwork");
+				return result;
 			}
 			catch (Exception ex)
 			{
@@ -180,12 +90,13 @@ namespace Angor.Browse.UniSatWallet
 			}
 		}
 
-		public async ValueTask<string> PaymentRequest(string network, string amount)
+		public async ValueTask<string> SwitchUniSatNetwork(string network)
 		{
 			var module = await moduleTask.Value;
 			try
 			{
-				return await module.InvokeAsync<string>("paymentRequest", network, amount);
+				var result = await module.InvokeAsync<string>("switchUniSatNetwork", network);
+				return result;
 			}
 			catch (Exception ex)
 			{
@@ -194,12 +105,13 @@ namespace Angor.Browse.UniSatWallet
 			}
 		}
 
-		public async ValueTask<string> DIDSupportedMethods()
+		public async ValueTask<string> GetUniSatPublicKey()
 		{
 			var module = await moduleTask.Value;
 			try
 			{
-				return await module.InvokeAsync<string>("didSupportedMethods");
+				var result = await module.InvokeAsync<string>("getUniSatPublicKey");
+				return result;
 			}
 			catch (Exception ex)
 			{
@@ -208,12 +120,13 @@ namespace Angor.Browse.UniSatWallet
 			}
 		}
 
-		public async ValueTask<string> DIDRequest(string[] methods)
+		public async ValueTask<string> GetUniSatBalance()
 		{
 			var module = await moduleTask.Value;
 			try
 			{
-				return await module.InvokeAsync<string>("didRequest", methods);
+				var result = await module.InvokeAsync<string>("getUniSatBalance");
+				return result;
 			}
 			catch (Exception ex)
 			{
@@ -222,12 +135,118 @@ namespace Angor.Browse.UniSatWallet
 			}
 		}
 
-		public async ValueTask<string> SignMessage(string msg)
+		public async ValueTask<string> GetUniSatInscriptions(int cursor, int size)
 		{
 			var module = await moduleTask.Value;
 			try
 			{
-				return await module.InvokeAsync<string>("signMessage", msg);
+				var result = await module.InvokeAsync<string>("getUniSatInscriptions", cursor, size);
+				return result;
+			}
+			catch (Exception ex)
+			{
+				HandleExceptions(ex);
+				throw;
+			}
+		}
+
+		public async ValueTask<string> SendBitcoinUniSat(string toAddress, int satoshis, object options)
+		{
+			var module = await moduleTask.Value;
+			try
+			{
+				var result = await module.InvokeAsync<string>("sendBitcoinUniSat", toAddress, satoshis, options);
+				return result;
+			}
+			catch (Exception ex)
+			{
+				HandleExceptions(ex);
+				throw;
+			}
+		}
+
+		public async ValueTask<string> SendInscriptionUniSat(string address, string inscriptionId, object options)
+		{
+			var module = await moduleTask.Value;
+			try
+			{
+				var result = await module.InvokeAsync<string>("sendInscriptionUniSat", address, inscriptionId, options);
+				return result;
+			}
+			catch (Exception ex)
+			{
+				HandleExceptions(ex);
+				throw;
+			}
+		}
+
+		public async ValueTask<string> SignMessageUniSat(string msg, string type)
+		{
+			var module = await moduleTask.Value;
+			try
+			{
+				var result = await module.InvokeAsync<string>("signMessageUniSat", msg, type);
+				return result;
+			}
+			catch (Exception ex)
+			{
+				HandleExceptions(ex);
+				throw;
+			}
+		}
+
+		public async ValueTask<string> PushTransactionUniSat(object options)
+		{
+			var module = await moduleTask.Value;
+			try
+			{
+				var result = await module.InvokeAsync<string>("pushTransactionUniSat", options);
+				return result;
+			}
+			catch (Exception ex)
+			{
+				HandleExceptions(ex);
+				throw;
+			}
+		}
+
+		public async ValueTask<string> SignPsbtUniSat(string psbtHex, object options)
+		{
+			var module = await moduleTask.Value;
+			try
+			{
+				var result = await module.InvokeAsync<string>("signPsbtUniSat", psbtHex, options);
+				return result;
+			}
+			catch (Exception ex)
+			{
+				HandleExceptions(ex);
+				throw;
+			}
+		}
+
+		public async ValueTask<string> SignPsbtsUniSat(string[] psbtHexs, object options)
+		{
+			var module = await moduleTask.Value;
+			try
+			{
+				var result = await module.InvokeAsync<string>("signPsbtsUniSat", psbtHexs, options);
+				return result;
+			}
+			catch (Exception ex)
+			{
+				HandleExceptions(ex);
+				throw;
+			}
+		}
+
+		public async ValueTask<string> PushPsbtUniSat(string psbtHex)
+		{
+			var module = await moduleTask.Value;
+			try
+			{
+				var result = await module.InvokeAsync<string>("pushPsbtUniSat", psbtHex);
+				return result;
 			}
 			catch (Exception ex)
 			{

@@ -1,28 +1,29 @@
 ﻿using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Numerics;
 using System.Threading.Tasks;
 
 namespace Angor.Browse.UniSatWallet
 {
 	public interface IUniSatWalletConnector
-    {
-
-		ValueTask ConnectUniSatWallet();
-		ValueTask DisposeAsync();
+	{
 		ValueTask<bool> HasUniSatWallet();
-		ValueTask<bool> IsSiteConnected();
-		ValueTask<string> SignMessageAnyAccount(string value);
-        ValueTask<UniSatWalletMessageOut?> GetWallet(string? key = null);
-        ValueTask<string> GetSwapKey(string key, string walletId, string accountId, bool includePrivateKey);
-        ValueTask<string> GetSwapSecret(string key, string walletId, string accountId, string message);
-        ValueTask<string> SignMessageAnyAccountJson(string value);
-		ValueTask<string> PaymentRequest(string network, string amount);
-		ValueTask<string> DIDSupportedMethods();
-		ValueTask<string> DIDRequest(string[] methods);
-		ValueTask<string> SignMessage(string msg);
-        ValueTask<UniSatWalletSendFundsOut?> SendCoins(UniSatWalletSendFunds data);
-        ValueTask<UniSatWalletSwapCoinsOut?> SwapCoins(UniSatWalletSwapCoins data);
-    }
+		ValueTask<string> ConnectUniSatWallet();
+		ValueTask<string> GetUniSatAccounts();
+		ValueTask<string> GetUniSatNetwork();
+		ValueTask<string> SwitchUniSatNetwork(string network); //the network."livenet" and "testnet"
+		ValueTask<string> GetUniSatPublicKey();
+		ValueTask<string> GetUniSatBalance();
+		ValueTask<string> GetUniSatInscriptions(int cursor, int size);
+		ValueTask<string> SendBitcoinUniSat(string toAddress, int satoshis, object options);
+		ValueTask<string> SendInscriptionUniSat(string address, string inscriptionId, object options);
+		ValueTask<string> SignMessageUniSat(string msg, string type);
+		ValueTask<string> PushTransactionUniSat(object options);
+		ValueTask<string> SignPsbtUniSat(string psbtHex, object options);
+		ValueTask<string> SignPsbtsUniSat(string[] psbtHexs, object options);
+		ValueTask<string> PushPsbtUniSat(string psbtHex);
+	}
+
 }
