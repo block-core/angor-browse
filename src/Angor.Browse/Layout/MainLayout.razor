@@ -1,8 +1,41 @@
 ﻿@inherits LayoutComponentBase
 
-<main>
+<main class="min-h-screen dark:bg-angor-900 bg-white">
+    <header class="body-font ">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row main-nav">
+            <a class="flex title-font font-medium mb-4 md:mb-0" href="/">
+                <span class="text-3xl dark:text-white text-angor-900">Angor</span>
+            </a>
+          @*<nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
+                <a class="mr-5 hover:text-white">First Link</a>
+                <a class="mr-5 hover:text-white">Second Link</a>
+                <a class="mr-5 hover:text-white">Third Link</a>
+                <a class="mr-5 hover:text-white">Fourth Link</a>
+            </nav> *@
+            <button class="inline-flex items-center bg-angor-500 border-0 py-1 px-3 focus:outline-none hover:bg-angor-400 rounded text-base mt-4 md:mt-0">
+                Connect Wallet
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
 
     @Body
 
-</main>
+    <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8">
+    <footer class="body-font">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row main-nav">
+                 <span class="text-xl dark:text-white text-angor-900">@@2023 - Angor Browse</span>
+  
+            <div class="flex gap-4 p-2 rounded-lg social-wrapper mt-4 md:mt-0">
+                <img onclick="relocate('facebook.com')" src="https://img.icons8.com/material/24/000000/twitter--v2.png" alt="Facebook">
+                <img onclick="relocate('instagram.com')" src="https://img.icons8.com/material/24/000000/instagram-new--v1.png" alt="Instagram">
+                <img onclick="relocate('twitter.com')" src="https://img.icons8.com/material/24/000000/twitter--v2.png" alt="twitter ">
+                <img onclick="relocate('telegram.org')" src="https://img.icons8.com/ios-filled/24/000000/telegram-app.png" alt="telegram ">
+                <img onclick="relocate('discird.com')" src="https://img.icons8.com/material/24/000000/discord-logo--v1.png" alt="discord">
+            </div>
+        </div>
+    </footer>
+ </main>
 

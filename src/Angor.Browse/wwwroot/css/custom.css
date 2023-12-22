@@ -101,3 +101,13 @@ a, .btn-link {
 code {
     color: #c02d76;
 }
+.main-nav {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.social-wrapper {
+    background-color: white;
+    border: 1px solid #1f2937;
+
+}
