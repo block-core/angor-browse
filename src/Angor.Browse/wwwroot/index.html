@@ -13,15 +13,25 @@
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
     <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" />
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
+    <!-- icons  -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
 </head>
 
-<body>
+<body class="font-sans text-base font-normal text-gray-700 dark:text-gray-200 bg-surface-100 dark:bg-surfacedark-100">
     <div id="app">
-        <svg class="loading-progress">
-            <circle r="40%" cx="50%" cy="50%" />
-            <circle r="40%" cx="50%" cy="50%" />
-        </svg>
-        <div class="loading-progress-text"></div>
+        <!-- preloader -->
+        <div class="preloader loaded-success fixed inset-0 z-50 bg-neutral-10 dark:bg-neutral-900">
+            <div class="w-full h-screen flex justify-center items-center">
+                <!-- loader -->
+                <svg class="circular-loader relative w-[100px] h-[100px]">
+                    <circle class="path stroke-primary-600 dark:stroke-primary-200" cx="50" cy="50" r="20" fill="none"
+                            stroke-width="5" stroke-miterlimit="10"></circle>
+                </svg>
+            </div>
+        </div>
     </div>
 
     <div id="blazor-error-ui">
@@ -30,6 +40,7 @@
         <a class="dismiss">🗙</a>
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
+    <script src="/js/custom.js"></script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
 </body>
 
