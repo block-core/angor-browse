@@ -5,11 +5,11 @@
       "url": "css\/app.css"
     },
     {
-      "hash": "sha256-bu6JuWw\/JUKgvOkKo9LJGMqk2ie6YOUmvVrr7bfPR\/s=",
+      "hash": "sha256-NEbadZFI74QaHvpfuWdSBZh6EUhAjLdbnL0jNtyKc9U=",
       "url": "css\/app.min.css"
     },
     {
-      "hash": "sha256-FaGlm2SXMLBmlwRYwvQ0g\/G1xxYAlGo3g2XTdIARgy0=",
+      "hash": "sha256-5CfKHjGB3qODhKp+x9YJoGfdQhFKZlnpchUi09QjFUs=",
       "url": "css\/custom.css"
     },
     {
@@ -49,7 +49,7 @@
       "url": "img\/media2.png"
     },
     {
-      "hash": "sha256-4Nh5Kq8TG\/4a1tNYGsURtARwqLWLlKGV7RZpHoQZA\/Q=",
+      "hash": "sha256-935wc7izM5A+KAQ6K\/Wd8HWlfG9uoMAvUAEvZ4gmv5A=",
       "url": "index.html"
     },
     {
@@ -97,27 +97,27 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-9evkq82+hQ3wdSrlgBwGxX6BPTVX\/qAiv6CH6udqE0o=",
+      "hash": "sha256-CytWvU056DEy6V3fA2jPAgP5PT26sa\/2LKKl31905a8=",
       "url": "_framework\/blazor.boot.json"
     },
     {
-      "hash": "sha256-4QJNdkQDebfcDNIS\/N0GcD3nV2GdVNCUY6htldeiQk8=",
+      "hash": "sha256-2BIFahmtni4oJoJ5wsx2X5CbGEJtOYOhp83xStlnTWQ=",
       "url": "_framework\/Angor.Browse.BlockcoreDns.wasm"
     },
     {
-      "hash": "sha256-Y4GgVEvDCN1HhirDXhGexKU155Df+6YSIp\/sA2aL4ME=",
+      "hash": "sha256-iTaVvZsn8q+BkhKJDcxVqn8iyvAXTyp0jFScORK92Tk=",
       "url": "_framework\/Angor.Browse.BlockcoreWallet.wasm"
     },
     {
-      "hash": "sha256-MdDkbaj8vjBgYG5McM0nJgfTWWdEJABFQA\/a3sKC48A=",
+      "hash": "sha256-bbQd9qkw0oEZweCR57JljYck+d6eh1K8wGO2PVeDFLM=",
       "url": "_framework\/Angor.Browse.Shared.wasm"
     },
     {
-      "hash": "sha256-nWvvycOjJOuzcdiOojZp\/26O6qCQ\/YilTtSVA67zMF4=",
+      "hash": "sha256-\/XzWbZp37VML\/aDxyXrNPI7WWuQ8wWaJ7bKDgLA1e98=",
       "url": "_framework\/Angor.Browse.UniSatWallet.wasm"
     },
     {
-      "hash": "sha256-1TVKBKXMyzC5UeJFG0Y+w20Jh4IMduWQlAssTsY3oHM=",
+      "hash": "sha256-1LhCrAONWq41Vax2ziBSUeCUjSiwbquh4ETqDJ\/jOII=",
       "url": "_framework\/Angor.Browse.wasm"
     },
     {
@@ -625,5 +625,5 @@
       "url": "_content\/Angor.Browse.UniSatWallet\/UniSatWallet.js"
     }
   ],
-  "version": "6FNW9qn0"
+  "version": "V1Z5RiwM"
 };
