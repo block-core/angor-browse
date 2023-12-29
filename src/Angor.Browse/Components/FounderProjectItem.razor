@@ -1,0 +1,48 @@
+@using Angor.Browse.Shared.Services
+@using Angor.Browse.Models
+@using Angor.Browse.Storage
+@using Angor.Browse.Shared.Models
+@using Nostr.Client.Messages
+@using Nostr.Client.Messages.Metadata
+
+@inject IRelayService  RelayService;
+@inject IClientStorage Storage;
+
+<div class="card mb-3">
+    @if (InvestmentRequests)
+    {
+        <div class="card-header bg-success">
+            <h4 class="d-flex justify-content-center align-items-center">Pending investment requests</h4>
+        </div>
+    }
+    <div class="card-body">
+        <h3 class="card-title">@FounderProject.Metadata?.Name</h3>
+        <p class="card-subtitle">@FounderProject.Metadata?.About</p>
+        <p class="card-text">
+            Project ID: @FounderProject.ProjectInfo.ProjectIdentifier<br/>
+            Nostr ID:   <a href="/" target="_blank">@FounderProject.ProjectInfo.NostrPubKey</a>
+        </p>
+        <NavLink href=@($"/view/{FounderProject.ProjectInfo.ProjectIdentifier}") class="btn btn-primary">View Project</NavLink>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public FounderProject FounderProject { get; set; }
+
+    public bool InvestmentRequests { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        await RelayService.LookupDirectMessagesForPubKeyAsync(FounderProject.ProjectInfo.NostrPubKey, FounderProject.LastRequestForSignaturesTime, 1,
+            _ =>
+            {
+                if (InvestmentRequests)
+                    return;
+
+                InvestmentRequests = true;
+                StateHasChanged();
+            });
+    }
+}

@@ -5,6 +5,8 @@ using Angor.Browse.BlockcoreDns;
 using Angor.Browse.BlockcoreWallet;
 using Angor.Browse.UniSatWallet;
 using Blazored.LocalStorage;
+using Blazored.SessionStorage;
+using Polly.Bulkhead;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -18,6 +20,13 @@ builder.Services.AddBlockcoreDns();
 
 builder.Services.AddUniSatWallet();
 
+builder.Services.AddAngorBrowseSharedServices();
+
+
 builder.Services.AddBlazoredLocalStorage();
+builder.Services.AddBlazoredSessionStorage();
+
+builder.Services.AddBlockcoreDns();
+
 
 await builder.Build().RunAsync();

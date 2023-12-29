@@ -1,0 +1,10 @@
+namespace Angor.Browse.Shared.Models;
+
+public class SignData
+{
+    public string ProjectIdentifier { get; set; }
+
+    public string FounderRecoveryPrivateKey { get; set; }
+    
+    public string NostrPrivateKey { get; set; }
+}

@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Angor.Browse.BlockcoreWalle
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Angor.Browse.UniSatWallet", "Angor.Browse.UniSatWallet\Angor.Browse.UniSatWallet.csproj", "{64F79700-5B48-47A9-8F45-EC65FA9C370B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Angor.Browse.Shared", "Angor.Browse.Shared\Angor.Browse.Shared.csproj", "{37A9B1C8-A512-4A85-910B-815294E62911}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{64F79700-5B48-47A9-8F45-EC65FA9C370B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64F79700-5B48-47A9-8F45-EC65FA9C370B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64F79700-5B48-47A9-8F45-EC65FA9C370B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37A9B1C8-A512-4A85-910B-815294E62911}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37A9B1C8-A512-4A85-910B-815294E62911}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37A9B1C8-A512-4A85-910B-815294E62911}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37A9B1C8-A512-4A85-910B-815294E62911}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

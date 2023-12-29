@@ -1,54 +1,295 @@
 ﻿@page "/view/{ProjectId}"
+@using Angor.Browse.Shared;
+@using Angor.Browse.Storage;
+@using Angor.Browse.Shared.Models;
+@using Blockcore.NBitcoin;
+@using Angor.Browse.Services;
+@using Angor.Browse.Shared.Services;
+@using Angor.Browse.Components;
 
-<PageTitle>View</PageTitle>
+@inject HttpClient Http;
+@inject IDerivationOperations _derivationOperations;
+@inject IWalletStorage _walletStorage;
+@inject IClientStorage storage;
+@inject ICacheStorage SessionStorage;
+@inject NavigationManager NavigationManager;
+@inject INetworkConfiguration _NetworkConfiguration;
+@inject IClipboardService _clipboardService;
 
+@inherits BaseComponent
 
-<div class="flex flex-col w-full gap-12 md:gap-2 overflow-hidden">
+<div class="container mt-4">
+    <h1>View Project</h1>
 
-    <div class="flex flex-wrap w-full flex-col gap-8 md:p-10 bg-surface-100 dark:bg-surfacedark-100 rounded-2xl">
-        <div class="flex flex-col gap-2">
-            <h2 class="text-xl leading-tight">View</h2>
-            <div class="bg-neutral-10 dark:bg-neutral-900 p-6 md:p-8 border border-gray-200 dark:border-gray-700 rounded-2xl">
-                <div class="flex flex-col md:flex-row md:flex-wrap gap-4 md:gap-8">
+    <NotificationComponent @ref="notificationComponent" />
 
-                    <div>
-                        <p class="text-sm tracking-[0.1px] mb-3">
-                            Please wait...
-                        </p>
-                        <div class="w-full md:w-72 p-10 bg-neutral-10 dark:bg-neutral-900 rounded-2xl border border-gray-200 dark:border-gray-700">
-                            <div class="relative flex flex-col gap-4 text-center mb-6">
-                                <div class="relative">
-                                    <!-- linear loader -->
-                                    <div class="linear-loader relative overflow-hidden w-full h-1 flex bg-gray-100 dark:bg-gray-700">
-                                        <!-- slow -->
-                                        <div class="bar absolute inset-0 w-full bg-primary-600 dark:bg-primary-200"></div>
-                                        <!-- fast -->
-                                        <div class="bar absolute inset-0 w-full bg-primary-600 dark:bg-primary-200"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="relative flex flex-col items-center justify-center">
-                                <!-- circular loader -->
-                                <svg class="circular-loader relative w-[100px] h-[100px]">
-                                    <circle class="path stroke-primary-600 dark:stroke-primary-200" cx="50" cy="50" r="20" fill="none"
-                                            stroke-width="5" stroke-miterlimit="10"></circle>
-                                </svg>
-                            </div>
-                        </div>
+    @if (project == null)
+    {
+        <p><em>project not found...</em></p>
+    }
+    else
+    {
+        <!-- Project Details Section -->
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4>Project Details</h4>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Project Identifier: @project.ProjectIdentifier</h5>
+                <a href="@projectExplorerLink" target="_blank">View the transaction on the explorer.</a>
+                <p class="card-text">Founder Key: @project.FounderKey</p>
+                <p class="card-text">Start Date: @project.StartDate.ToString("dd/MM/yyyy")</p>
+                <p class="card-text">Penalty Days: @project.PenaltyDays</p>
+                <p class="card-text">Expiry Date: @project.ExpiryDate.ToString("dd/MM/yyyy")</p>
+                <p class="card-text">Target Amount: @project.TargetAmount</p>
+            </div>
+        </div>
+
+        <!-- Stages Section -->
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4>Stages</h4>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Stage </th>
+                            <th>Stage %</th>
+                            <th>Release Date</th>
+                            <!-- Other headers -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int index = 0; index < project.Stages.Count; index++)
+                        {
+                            <tr>
+                                <td>@(index + 1)</td>
+                                <td>@project.Stages[index].AmountToRelease %</td>
+                                <td>@project.Stages[index].ReleaseDate.ToString("dd/MM/yyyy")</td>
+                                <!-- Other stage details -->
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Seeders Section -->
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4>Selected Seeders</h4>
+            </div>
+            <div class="card-body">
+                @if (SelectedSeeders.Any())
+                {
+                    <!-- Seeders table -->
+                }
+                else
+                {
+                    <p><i class="bi bi-exclamation-triangle-fill"></i> No seeders yet.</p>
+                }
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4>Stats</h4>
+            </div>
+            <div class="card-body">
+                <!-- Progress bar section -->
+                <div class="progress mb-2">
+                    <div class="progress-bar" role="progressbar" style="width: @projectStats.FundingProgressPercent%;" aria-valuenow="@projectStats.FundingProgressPercent" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+
+                <!-- Additional details section -->
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <p class="card-text mb-0">Total Raised: @projectStats.TotalRaised @network.CoinTicker</p>
+                        <p class="card-text mb-0">Total Investors: @projectStats.TotalInvestors</p>
+                        <p class="card-text mb-0">Total Seeders: @projectStats.TotalSeeders</p>
+                        <p class="card-text mb-0">Time Left for Investing: @projectStats.TimeLeft days</p>
                     </div>
-
-
                 </div>
             </div>
         </div>
-    </div>
 
+
+        <!-- Actions Section -->
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4>Actions</h4>
+            </div>
+            <div class="card-body">
+                @if (founder)
+                {
+                    <p>You are the founder.</p>
+
+                    <div class="mb-3">
+                        <!-- Buttons Spend Funds and Approve Signature next to each other -->
+                        <NavLink href=@($"/spend/{project.ProjectIdentifier}") class="btn btn-primary me-2">Spend Funds</NavLink>
+                        <NavLink href=@($"/signatures/{project.ProjectIdentifier}") class="btn btn-primary">Approve signature</NavLink>
+                    </div>
+
+                    @if (project.NostrPubKey != null)
+                    {
+                        <div class="mb-3">
+                            <label for="NostrPublicKey" class="form-label">Project NOSTR public key (hex)</label>
+                            <div class="input-group">
+                                <InputText id="NostrPublicKey" @bind-Value="project.NostrPubKey" class="form-control" placeholder="@project.NostrPubKey" readonly />
+                                <button @onclick="CopyWordsToClipboardAsync" class="btn btn-success">Copy NSec to clipboard</button>
+                            </div>
+                        </div>
+                    }
+
+                }
+                else if (invested)
+                {
+                    <p>
+                        You have already invested in this project.
+
+                        <a href="@myProjectExplorerLink" target="_blank">View the transaction on the explorer.</a>
+                    </p>
+
+                    <button class="btn btn-danger" @onclick="RecoverFunds">Recover</button>
+                }
+                else
+                {
+                    <button class="btn btn-primary" @onclick="InvestInProject">Invest</button>
+                }
+            </div>
+        </div>
+
+
+        <!-- Relays Section -->
+        <div class="card mb-3">
+            <div class="card-header">
+                <h4>Relays</h4>
+            </div>
+            <div class="card-body">
+                @foreach (var relay in NostrClients)
+                {
+                    <a href="@relay" target="_blank" class="d-block mb-2">
+                        <i class="bi bi-globe"></i> @relay
+                    </a>
+                }
+            </div>
+        </div>
+    }
 </div>
 
 @code {
-
     [Parameter]
-    public string? ProjectId { get; set; }
+    public string ProjectId { get; set; }
+
+    private ProjectInfo? project;
+
+    private bool sendConfirmModal;
+
+    string myProjectExplorerLink;
+    string projectExplorerLink;
+
+    private List<(string Hash, int Amount)> SelectedSeeders = new List<(string hash, int amount)>
+    {
+        { (new uint256().ToString(), 10) },
+        { (new uint256().ToString(), 20) },
+    };
+
+    public class ProjectStats
+    {
+        public int TotalRaised { get; set; }
+        public int TotalInvestors { get; set; }
+        public int TotalSeeders { get; set; }
+        public int TimeLeft { get; set; }
+        public int FundingProgressPercent { get; set; }
+
+    };
+
+    ProjectStats projectStats = new ProjectStats
+        {
+            TimeLeft = 7,
+            TotalInvestors = 150,
+            TotalRaised = 240,
+            TotalSeeders = 7,
+            FundingProgressPercent = 50,
+        };
+
+    bool founder = false;
+    bool invested = false;
+
+    private List<string> NostrClients = new List<string> { "wss://relay.angor.io", "wss://relay.angor1.io" };
+
+    protected override Task OnInitializedAsync()
+    {
+        var findProject = storage.GetInvestmentProjects().FirstOrDefault(p => p.ProjectIdentifier == ProjectId);
+
+        if (findProject != null)
+        {
+            project = findProject;
+
+            var investedProject = storage.GetSignatures().First(s => s.ProjectIdentifier == ProjectId);
+
+            invested = investedProject.Signatures.Any();
+            myProjectExplorerLink = _NetworkConfiguration.GetExplorerUrl().Url + $"/transaction/{investedProject.TransactionId}";
+        }
+        else
+        {
+            findProject = storage.GetFounderProjects().FirstOrDefault(p => p.ProjectInfo.ProjectIdentifier == ProjectId)?.ProjectInfo;
+
+            if (findProject != null)
+            {
+                founder = true;
+                invested = true;
+                project = findProject;
+            }
+            else
+            {
+                findProject = SessionStorage.GetProjectById(ProjectId);
+
+                if (findProject != null)
+                {
+                    project = findProject;
+                }
+            }
+        }
+
+        if (project != null)
+        {
+            projectExplorerLink = _NetworkConfiguration.GetExplorerUrl().Url + $"/transaction/{project.CreationTransactionId}";
+        }
+
+        return Task.CompletedTask;
+    }
+
+    private async Task RefreshBalance()
+    {
+        var operationResult = await notificationComponent.LongOperation(async () =>
+        {
+            await Task.Delay(1000);
+
+            return new OperationResult { Success = true };
+        });
+    }
+    private async Task RecoverFunds()
+    {
+        NavigationManager.NavigateTo($"/recover/{ProjectId}");
+    }
+
+    private async Task InvestInProject()
+    {
+        if (hasWallet)
+            NavigationManager.NavigateTo($"/invest/{ProjectId}");
+        else
+            notificationComponent.ShowNotificationMessage("You must create a wallet if you want to invest");
+    }
 
 
+    private async Task CopyWordsToClipboardAsync()
+    {
+        var nostrKey = _derivationOperations.DeriveProjectNostrPrivateKey(_walletStorage.GetWallet(), project.ProjectIndex);
+        var nsec = NBitcoin.DataEncoders.Encoders.Hex.EncodeData(nostrKey.ToBytes());
+        await _clipboardService.WriteTextAsync(nsec);
+        StateHasChanged();
+    }
 }
