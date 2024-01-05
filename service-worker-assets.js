@@ -97,27 +97,27 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-CytWvU056DEy6V3fA2jPAgP5PT26sa\/2LKKl31905a8=",
+      "hash": "sha256-trpHTrC643P1TjNaAcDdjGT9uGzb8GOIsB+hyCd3LDY=",
       "url": "_framework\/blazor.boot.json"
     },
     {
-      "hash": "sha256-2BIFahmtni4oJoJ5wsx2X5CbGEJtOYOhp83xStlnTWQ=",
+      "hash": "sha256-GEjOto9MTht53FhVkm+uN58AeuEyJxvfSGv7u4GHYYY=",
       "url": "_framework\/Angor.Browse.BlockcoreDns.wasm"
     },
     {
-      "hash": "sha256-iTaVvZsn8q+BkhKJDcxVqn8iyvAXTyp0jFScORK92Tk=",
+      "hash": "sha256-0LWfRkrMAB9erHyWUOJ7TBj89yqVFt4m2wE5Xq1mq58=",
       "url": "_framework\/Angor.Browse.BlockcoreWallet.wasm"
     },
     {
-      "hash": "sha256-bbQd9qkw0oEZweCR57JljYck+d6eh1K8wGO2PVeDFLM=",
+      "hash": "sha256-6SBJB1\/qxmKJMdGW8unu5SKBIqZaKRN8srvZKB5KQbE=",
       "url": "_framework\/Angor.Browse.Shared.wasm"
     },
     {
-      "hash": "sha256-\/XzWbZp37VML\/aDxyXrNPI7WWuQ8wWaJ7bKDgLA1e98=",
+      "hash": "sha256-Bur9AhsgDvXLi3jkYy6BxICw8AVhkkcSsOuSTAuC080=",
       "url": "_framework\/Angor.Browse.UniSatWallet.wasm"
     },
     {
-      "hash": "sha256-1LhCrAONWq41Vax2ziBSUeCUjSiwbquh4ETqDJ\/jOII=",
+      "hash": "sha256-\/tlIfQBvd2ThjQyhcBrGHrEoGraT0i43xK4vw8t6eUs=",
       "url": "_framework\/Angor.Browse.wasm"
     },
     {
@@ -625,5 +625,5 @@
       "url": "_content\/Angor.Browse.UniSatWallet\/UniSatWallet.js"
     }
   ],
-  "version": "V1Z5RiwM"
+  "version": "l9Bez5EN"
 };
