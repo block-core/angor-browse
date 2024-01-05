@@ -8,7 +8,7 @@ namespace Angor.Browse.Storage;
 public class LocalSessionStorage : ICacheStorage
 {
     private ISyncSessionStorageService _sessionStorageService;
-    
+
     private const string BrowseIndexerData = "subscriptions";
 
     public LocalSessionStorage(ISyncSessionStorageService sessionStorageService)
@@ -18,13 +18,29 @@ public class LocalSessionStorage : ICacheStorage
 
     public void StoreProjectInfo(ProjectInfo project)
     {
-        _sessionStorageService.SetItem(project.ProjectIdentifier,project);
+        _sessionStorageService.SetItem(project.ProjectIdentifier, project);
+    }
+
+    public ProjectMetadata? GetProjectMetadataByPubkey(string pubkey)
+    {
+        return _sessionStorageService.GetItem<ProjectMetadata>(pubkey);
+    }
+
+    public void StoreProjectMetadata(string pubkey, ProjectMetadata projectMetadata)
+    {
+        _sessionStorageService.SetItem(pubkey, projectMetadata);
+    }
+
+    public bool IsProjectMetadataStorageByPubkey(string pubkey)
+    {
+        return _sessionStorageService.ContainKey(pubkey);
     }
 
     public ProjectInfo? GetProjectById(string projectId)
     {
         return _sessionStorageService.GetItem<ProjectInfo>(projectId);
     }
+
     public bool IsProjectInStorageById(string projectId)
     {
         return _sessionStorageService.ContainKey(projectId);
@@ -37,12 +53,12 @@ public class LocalSessionStorage : ICacheStorage
 
     public void SetProjectIndexerData(List<ProjectIndexerData> list)
     {
-        _sessionStorageService.SetItem(BrowseIndexerData,list);
+        _sessionStorageService.SetItem(BrowseIndexerData, list);
     }
 
     public List<UtxoData> GetUnconfirmedInboundFunds()
     {
-        return _sessionStorageService.GetItem<List<UtxoData>>("unconfirmed-inbound") ?? new ();
+        return _sessionStorageService.GetItem<List<UtxoData>>("unconfirmed-inbound") ?? new();
     }
 
     public List<Outpoint> GetUnconfirmedOutboundFunds()

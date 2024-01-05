@@ -9,11 +9,11 @@ namespace Angor.Browse.Shared.Services
 {
     public interface IIndexerService
     {
-        Task<List<ProjectIndexerData>> GetProjectsAsync();
+        Task<List<ProjectIndexerData>> GetProjectsAsync(int? offset, int limit);
         Task<ProjectIndexerData?> GetProjectByIdAsync(string projectId);
         Task<List<ProjectInvestment>> GetInvestmentsAsync(string projectId);
         Task<string> PublishTransactionAsync(string trxHex);
-        Task<AddressBalance[]> GetAdressBalancesAsync(List<AddressInfo> data);
+        Task<AddressBalance[]> GetAdressBalancesAsync(List<AddressInfo> data, bool includeUnconfirmed = false);
         Task<List<UtxoData>?> FetchUtxoAsync(string address, int limit, int offset);
         Task<FeeEstimations?> GetFeeEstimationAsync(int[] confirmations);
 
@@ -25,19 +25,21 @@ namespace Angor.Browse.Shared.Services
     {
         public string FounderKey { get; set; }
         public string ProjectIdentifier { get; set; }
-        
         public long CreatedOnBlock { get; set; }
         public string NostrPubKey { get; set; }
+
+        public string TrxId { get; set; }
+        public long? TotalInvestmentsCount { get; set; }
     }
 
     public class ProjectInvestment
     {
         public string TransactionId { get; set; }
-        
+
         public string InvestorPublicKey { get; set; }
-        
+
         public long TotalAmount { get; set; }
-        
+
         public string HashOfSecret { get; set; }
 
         public bool IsSeeder { get; set; }
@@ -56,11 +58,10 @@ namespace Angor.Browse.Shared.Services
             _networkService = networkService;
         }
 
-        public async Task<List<ProjectIndexerData>> GetProjectsAsync()
+        public async Task<List<ProjectIndexerData>> GetProjectsAsync(int? offset, int limit)
         {
             var indexer = _networkService.GetPrimaryIndexer();
-            // todo: dan - make this proper paging
-            var response = await _httpClient.GetAsync($"{indexer.Url}/api/query/Angor/projects?offset=0&limit=50");
+            var response = await _httpClient.GetAsync($"{indexer.Url}/api/query/Angor/projects?offset={offset}&limit={limit}");
             _networkService.CheckAndHandleError(response);
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<List<ProjectIndexerData>>();
@@ -68,6 +69,11 @@ namespace Angor.Browse.Shared.Services
 
         public async Task<ProjectIndexerData?> GetProjectByIdAsync(string projectId)
         {
+            if (string.IsNullOrEmpty(projectId))
+            {
+                return null;
+            }
+
             var indexer = _networkService.GetPrimaryIndexer();
             var response = await _httpClient.GetAsync($"{indexer.Url}/api/query/Angor/projects/{projectId}");
             _networkService.CheckAndHandleError(response);
@@ -76,7 +82,7 @@ namespace Angor.Browse.Shared.Services
             {
                 return null;
             }
-            
+
             return await response.Content.ReadFromJsonAsync<ProjectIndexerData>();
         }
 
@@ -95,7 +101,7 @@ namespace Angor.Browse.Shared.Services
 
             var response = await _httpClient.PostAsync($"{indexer.Url}/api/command/send", new StringContent(trxHex));
             _networkService.CheckAndHandleError(response);
-            
+
             if (response.IsSuccessStatusCode)
                 return string.Empty;
 
@@ -104,10 +110,10 @@ namespace Angor.Browse.Shared.Services
             return response.ReasonPhrase + content;
         }
 
-        public async Task<AddressBalance[]> GetAdressBalancesAsync(List<AddressInfo> data)
+        public async Task<AddressBalance[]> GetAdressBalancesAsync(List<AddressInfo> data, bool includeUnconfirmed = false)
         {
             //check all new addresses for balance or a history
-            var urlBalance = "/api/query/addresses/balance";
+            var urlBalance = $"/api/query/addresses/balance?includeUnconfirmed={includeUnconfirmed}";
             var indexer = _networkService.GetPrimaryIndexer();
             var response = await _httpClient.PostAsJsonAsync(indexer.Url + urlBalance,
                 data.Select(_ => _.Address).ToArray());
@@ -121,7 +127,7 @@ namespace Angor.Browse.Shared.Services
             return addressesNotEmpty;
         }
 
-        public async Task<List<UtxoData>?> FetchUtxoAsync(string address, int offset , int limit)
+        public async Task<List<UtxoData>?> FetchUtxoAsync(string address, int offset, int limit)
         {
             var indexer = _networkService.GetPrimaryIndexer();
 
@@ -162,7 +168,7 @@ namespace Angor.Browse.Shared.Services
             var indexer = _networkService.GetPrimaryIndexer();
 
             var url = $"/api/query/transaction/{transactionId}/hex";
-            
+
             var response = await _httpClient.GetAsync(indexer.Url + url);
             _networkService.CheckAndHandleError(response);
 
@@ -177,7 +183,7 @@ namespace Angor.Browse.Shared.Services
             var indexer = _networkService.GetPrimaryIndexer();
 
             var url = $"/api/query/transaction/{transactionId}";
-            
+
             var response = await _httpClient.GetAsync(indexer.Url + url);
             _networkService.CheckAndHandleError(response);
 
