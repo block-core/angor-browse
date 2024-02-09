@@ -1,45 +1,20 @@
 ﻿@page "/"
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Angor Browse</PageTitle>
 
-<div class="flex flex-col w-full gap-12 md:gap-2 overflow-hidden">
- 
-    <div class="flex flex-wrap w-full flex-col gap-8 md:p-10 bg-surface-100 dark:bg-surfacedark-100 rounded-2xl">
-        <div class="flex flex-col gap-2">
-            <h2 class="text-xl leading-tight">Home</h2>
-            <div class="bg-neutral-10 dark:bg-neutral-900 p-6 md:p-8 border border-gray-200 dark:border-gray-700 rounded-2xl">
-                <div class="flex flex-col md:flex-row md:flex-wrap gap-4 md:gap-8">
-           
-                    <div>
-                        <p class="text-sm tracking-[0.1px] mb-3">
-                            Please wait...
-                        </p>
-                        <div class="w-full md:w-72 p-10 bg-neutral-10 dark:bg-neutral-900 rounded-2xl border border-gray-200 dark:border-gray-700">
-                            <div class="relative flex flex-col gap-4 text-center mb-6">
-                                <div class="relative">
-                                    <!-- linear loader -->
-                                    <div class="linear-loader relative overflow-hidden w-full h-1 flex bg-gray-100 dark:bg-gray-700">
-                                        <!-- slow -->
-                                        <div class="bar absolute inset-0 w-full bg-primary-600 dark:bg-primary-200"></div>
-                                        <!-- fast -->
-                                        <div class="bar absolute inset-0 w-full bg-primary-600 dark:bg-primary-200"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="relative flex flex-col items-center justify-center">
-                                <!-- circular loader -->
-                                <svg class="circular-loader relative w-[100px] h-[100px]">
-                                    <circle class="path stroke-primary-600 dark:stroke-primary-200" cx="50" cy="50" r="20" fill="none"
-                                            stroke-width="5" stroke-miterlimit="10"></circle>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
+<div class="-mt-[82px] flex-grow lg:-mt-[106px]">
+    <div class="h-20 bg-black lg:h-[104px]"></div>
+    <section class="bg-white bg-[url(../images/world-map.png)] bg-bottom bg-no-repeat rtl:rotate-y-180 dark:bg-black">
+         <div class="py-24 dark:bg-gradient-to-r dark:from-[#B476E5]/10 dark:to-[#47BDFF]/10 lg:py-40">
+            <div class="container">
+                <div class="mx-auto max-w-[1028px] text-center rtl:rotate-y-180">
+                    <h2 class="text-3xl font-black text-black dark:text-white sm:text-6xl lg:text-[100px] lg:leading-[125px]">
+                          <span class="text-color">Angor Browse</span>
+                    </h2>
+                    <p class="mt-5 text-2xl font-bold">Coming Soon . . .</p>
 
-                
                 </div>
             </div>
         </div>
-    </div>
-
- </div>
+    </section>
+</div>
