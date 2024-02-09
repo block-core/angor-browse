@@ -1,42 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 
 <head>
+
+    <!-- Base URL -->
+    <base href="/" />
+
+    <!-- Meta Tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Angor Browse</title>
-    <base href="/" />
-    <link rel="stylesheet" href="/css/app.min.css" />
-    <link rel="stylesheet" href="/css/custom.css" />
-    <link rel="icon" type="image/png" href="favicon.png" />
-    <link rel="stylesheet" href="Angor.Browse.styles.css" />
-    <link rel="manifest" href="manifest.webmanifest" />
-    <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
-    <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" />
+    <title>Angor Browse: Decentralized Crowdfunding Platform</title>
+    <meta name="description" content="Explore the trustless and risk-minimized ICO platform on Bitcoin and Nostr. Lock funds securely with special timelock contracts. Contribute to the codebase." />
+    <meta name="keywords" content="Decentralized Crowdfunding, Bitcoin, Nostr, ICO, Trustless Platform, Timelock Contracts, Fund Security, PWA, Blockchain Explorer, Open Source, Custom License, Code Contribution, Browser-Based Platform">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Angor: Decentralized Crowdfunding Platform">
+    <meta property="og:description" content="Explore the trustless and risk-minimized ICO platform on Bitcoin and Nostr. Lock funds securely with special timelock contracts. Contribute to the codebase.">
+    <meta property="og:url" content="https://angor.io">
+    <meta property="og:image" content="https://angor.io/icon-512.png">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Angor: Decentralized Crowdfunding Platform">
+    <meta name="twitter:description" content="Explore the trustless and risk-minimized ICO platform on Bitcoin and Nostr. Lock funds securely with special timelock contracts. Contribute to the codebase.">
+    <meta name="twitter:image" content="https://angor.io/icon-512.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="icon" href="/assets/images/favicon.png" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
+
+    <!-- Swiper Slider -->
+    <link rel="stylesheet" href="/assets/css/swiper-bundle.min.css" />
+
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link href="/assets/css/custom.css" rel="stylesheet" />
+    <link href="Angor.Website.styles.css" rel="stylesheet" />
+
+    <!-- Manifest and Apple Touch Icons -->
+    <link href="/manifest.webmanifest" rel="manifest" />
+    <link rel="apple-touch-icon" sizes="512x512" href="/icon-512.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png" />
+
 </head>
 
-<body class="font-sans text-base font-normal text-gray-700 dark:text-gray-200 bg-surface-100 dark:bg-surfacedark-100">
+<body class="overflow-x-hidden dark">
+
     <div id="app">
-        <!-- preloader -->
-        <div class="preloader loaded-success fixed inset-0 z-50 bg-neutral-10 dark:bg-neutral-900">
-            <div class="w-full h-screen flex justify-center items-center">
-                <!-- loader -->
-                <svg class="circular-loader relative w-[100px] h-[100px]">
-                    <circle class="path stroke-primary-600 dark:stroke-primary-200" cx="50" cy="50" r="20" fill="none"
-                            stroke-width="5" stroke-miterlimit="10"></circle>
-                </svg>
-            </div>
+        <div class="loader-wrapper">
+            <div class="loader"></div>
         </div>
     </div>
 
-    <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
-    </div>
     <script src="_framework/blazor.webassembly.js"></script>
-    <script src="/js/custom.js"></script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
+    <!-- Swiper Slider JS -->
+    <script src="/assets/js/swiper-bundle.min.js"></script>
+    <!-- Counter Js -->
+    <script src="/assets/js/vanilla-counter.js"></script>
+    <!-- AOS Animation JS -->
+    <script src="_content/BlazorAnimate/blazorAnimateInterop.js"></script>
+    <!-- Custom Js -->
+    <script src="/assets/js/custom.js"></script>
 </body>
 
 </html>
