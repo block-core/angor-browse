@@ -68,6 +68,12 @@ window.myInterop = {
         overlay.classList.toggle('hidden');
     },
 
+
+    installApp: function () {
+        window.BlazorPWA.installPWA();
+    },
+
+
     setOnScroll: function () {
         let scrollpos = window.scrollY;
         if (scrollpos > 0) {
@@ -139,3 +145,4 @@ window.onscroll = function () {
 window.myInterop.toggleTheme(true);
 window.myInterop.toggleDirection(true);
 window.myInterop.setCurrentYear();
+

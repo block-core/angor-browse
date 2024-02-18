@@ -1,6 +1,6 @@
 {
-  "name": "Angor Browse",
-  "short_name": "Angor Browse",
+  "name": "Browse",
+  "short_name": "browse",
   "id": "./",
   "start_url": "./",
   "display": "standalone",

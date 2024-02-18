@@ -17,8 +17,8 @@
 }
 
 .loader {
-    border: 12px solid #47bdff;
-    border-top: 12px solid #b476e5;
+    border: 12px solid #1F5D6A;
+    border-top: 12px solid #FF9900;
     border-radius: 50%;
     width: 100px;
     height: 100px;
@@ -28,8 +28,8 @@
 }
 
 .loader-small {
-    border: 6px solid #47bdff;
-    border-top: 6px solid #b476e5;
+    border: 6px solid #1F5D6A;
+    border-top: 6px solid #FF9900;
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -39,8 +39,8 @@
 }
 
 .loader-slow {
-    border: 12px solid #47bdff;
-    border-top: 12px solid #b476e5;
+    border: 12px solid #1F5D6A;
+    border-top: 12px solid #FF9900;
     border-radius: 50%;
     width: 100px;
     height: 100px;
@@ -105,4 +105,15 @@
 }
 .ml-2 {
     margin-left: 2rem;
+}
+
+.direction-ltr {
+    display: flex;
+    margin-top: 15px;
+}
+
+.direction-rtl {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 15px;
 }
