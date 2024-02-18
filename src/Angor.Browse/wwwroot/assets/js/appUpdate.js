@@ -1,7 +1,7 @@
-﻿var angorWebsite = window.angorWebsite || {};
-angorWebsite.mainBodyInstance = null;
+﻿var angorBrowse = window.angorBrowse || {};
+angorBrowse.mainBodyInstance = null;
 
-const bc = new BroadcastChannel('angor-website-channel');
+const bc = new BroadcastChannel('angor-browse-channel');
 bc.onmessage = function (message) {
     if (message && message.data == "new-version-found") {
         notifyAppUpdateToUser();
@@ -15,14 +15,14 @@ bc.onmessage = function (message) {
 
 function notifyAppUpdateToUser() {
     setTimeout(function () {
-        if (angorWebsite.mainBodyInstance) {
-            angorWebsite.mainBodyInstance.invokeMethodAsync('ShowUpdateVersion').then(function () { }, function (er) {
-                //setTimeout(notifyAppUpdateToUser, 2000);
+        if (angorBrowse.mainBodyInstance) {
+            angorBrowse.mainBodyInstance.invokeMethodAsync('ShowUpdateVersion').then(function () { }, function (er) {
+                 setTimeout(notifyAppUpdateToUser, 5000);
             });
         }
     }, 2000);
 }
-angorWebsite.onUserUpdate = function () {
+angorBrowse.onUserUpdate = function () {
     setTimeout(function () {
         bc.postMessage("skip-waiting");
     }, 300);
@@ -30,5 +30,5 @@ angorWebsite.onUserUpdate = function () {
 
 var mainBodyInstance;
 function setRef(ref) {
-    angorWebsite.mainBodyInstance = ref;
+    angorBrowse.mainBodyInstance = ref;
 }
