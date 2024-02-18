@@ -4,14 +4,12 @@
     <div class="container">
         <div class="flex items-center justify-between py-5 lg:py-0">
             <a href="/">
-                <Animate Animation="Animations.ZoomIn" Duration="TimeSpan.FromSeconds(0.5)">
-                    <img src="assets/images/logo.svg" alt="logo" class="h-10" />
-                </Animate>
+                <img src="assets/images/logo.svg" alt="logo" class="h-10" />
             </a>
             <div class="flex items-center">
                 <div @onclick="ToggleMenu" class="overlay fixed inset-0 z-[51] hidden bg-black/60 lg:hidden">
                 </div>
-                <div class="menus mr-3">
+                <div class="menus">
                     <div class="border-b border-gray/10 ltr:text-right rtl:text-left lg:hidden">
                         <button @onclick="ToggleMenu" type="button" class="p-4">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -29,7 +27,7 @@
                         </li>
                         <li>
                             <NavLink href="/browse">
-                                Browse
+                                Browse Projects
                             </NavLink>
                         </li>
                         <li>
@@ -59,6 +57,17 @@
                             </svg>
                         </button>
                     </li>
+
+                    <li>
+
+
+                        <button id="installButton" type="button" title="Insttal Angor Website"
+                                class="flex hidden h-10 w-10 items-center justify-center rounded-full bg-gray-dark text-white hover:text-primary"
+                                @onclick="InstallApp">
+                            <img src="assets/images/logo.svg" alt="logo" width="20" height="20" />
+                        </button>
+                    </li>
+
                 </ul>
                 <button type="button"
                         class="flex h-10 w-10 items-center justify-center rounded-full bg-primary lg:hidden"
@@ -102,7 +111,7 @@
         }
         catch (Exception ex)
         {
-            Console.Error.WriteLine($"Error calling search: {ex.Message}");
+            Console.Error.WriteLine($"Error calling toggleDirection: {ex.Message}");
         }
     }
 
@@ -114,7 +123,7 @@
         }
         catch (Exception ex)
         {
-            Console.Error.WriteLine($"Error calling search: {ex.Message}");
+            Console.Error.WriteLine($"Error calling toggleTheme: {ex.Message}");
         }
     }
 
@@ -126,8 +135,20 @@
         }
         catch (Exception ex)
         {
-            Console.Error.WriteLine($"Error calling search: {ex.Message}");
+            Console.Error.WriteLine($"Error calling toggleMobileMenu: {ex.Message}");
         }
     }
+    private async Task InstallApp()
+    {
+        try
+        {
+            await Js.InvokeVoidAsync("myInterop.installApp");
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Error calling installApp: {ex.Message}");
+        }
+    }
+
 
 }
