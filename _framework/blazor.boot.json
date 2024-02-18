@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "Angor.Browse",
   "resources": {
-    "hash": "sha256-fQRM7JC7QgCsJNsPvyim+G4z/RZUyEm7vMq/ZHM1nJo=",
+    "hash": "sha256-AheYhQlpSEpkQYJoF9u2Ic2+GO3nQ1rZvg4qvUompG8=",
     "jsModuleNative": {
       "dotnet.native.8.0.2.jgt5nhn140.js": "sha256-gPMK16QWoJSTxorlZJqcVtbBRTniIQWlLsJN2O4cJHg="
     },
@@ -17,11 +17,11 @@
       "icudt_no_CJK.dat": "sha256-L7sV7NEYP37/Qr2FPCePo5cJqRgTXRwGHuwF5Q+0Nfs="
     },
     "assembly": {
-      "Angor.Browse.BlockcoreDns.wasm": "sha256-XfrD13W9ZshpPNeqGcHr7J6nTeQSLkLE/7bc5jQHsPo=",
-      "Angor.Browse.BlockcoreWallet.wasm": "sha256-29mg2SOXMY4nfcBXHEVFApqqipSCbvp0uDdET3HyekU=",
-      "Angor.Browse.Shared.wasm": "sha256-QSWg2YVeHXuHD0aQlAnm/YZdBgcQnQ5S/yEUQlFLtrU=",
-      "Angor.Browse.UniSatWallet.wasm": "sha256-2dyFtqfo8kbF8WfvCYd92f/iqEY7vQLhqFBnjMvbMkU=",
-      "Angor.Browse.wasm": "sha256-AqkHgCKRG1Tv+8ajSxnNTFu1xii02tJfi+ZMQtxaofw=",
+      "Angor.Browse.BlockcoreDns.wasm": "sha256-lMCKkY2mF/YFABN6hrrIGXrTgiajPApcbZ4RFNCEvjc=",
+      "Angor.Browse.BlockcoreWallet.wasm": "sha256-86Ml38AOCj3EkRZCM9t0n/cjAsJBtE1svF3Sd3twNuI=",
+      "Angor.Browse.Shared.wasm": "sha256-KNjCLQ2woM0JMnaJ4tfwuibF29RWskVX1NQ9RDayOFI=",
+      "Angor.Browse.UniSatWallet.wasm": "sha256-+ZYY0ZcOoPzCJBney5aJHn9gS9yX/G7XEsHo7J7lZYg=",
+      "Angor.Browse.wasm": "sha256-ro4uMjH0XoTYnzgySfW9RSrrisI+GQENII5szM3vx9w=",
       "BlazorAnimate.wasm": "sha256-rwFvQE7EmQQRmAK0NmiigoQvxYT6a6KaBWPYzSV4+Jk=",
       "Blazored.LocalStorage.wasm": "sha256-xHBGFCMjDjvvTwtMvgaMBNmQk9JdVhGmws2/GMZlxrI=",
       "Blazored.SessionStorage.wasm": "sha256-nQXuCGHos7iwp2WxRUgarKmWgJYChaVQp2NajgNU3V8=",
