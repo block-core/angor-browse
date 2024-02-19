@@ -9,7 +9,7 @@
       "url": "assets\/css\/aos.css"
     },
     {
-      "hash": "sha256-jhcK7tqUZiGJTvU5Oy7ta4vWb6KC4h68oEMp+Lfahqk=",
+      "hash": "sha256-okhVv3torf7g54yiZQ8r6E5A\/Ftvz2MJmo+yaVWOEss=",
       "url": "assets\/css\/custom.css"
     },
     {
@@ -217,7 +217,7 @@
       "url": "icon-512.png"
     },
     {
-      "hash": "sha256-UGLtvRE6sykl+83R1TP3uYwKhD\/3UF9H09BubG4fvxw=",
+      "hash": "sha256-PAmp3NZD+vNi7DkM8nqR6BBMbSAh9Cf4\/7fZmMkpaKk=",
       "url": "index.html"
     },
     {
@@ -261,27 +261,27 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-lulCPfUCjdoWrGvK02S\/qD\/Nh5rorEJa\/t5hsJzyxeU=",
+      "hash": "sha256-3eV2FCelOmeYa01hsvAgLfJcKe6T9bHUhMEUuYY4ruI=",
       "url": "_framework\/blazor.boot.json"
     },
     {
-      "hash": "sha256-gzBfEawifVSF8bZkfIFuCd06s\/4ONb\/S4TSaAoxHQ9g=",
+      "hash": "sha256-Ao9cwaYiANo2lyFLV4nwPyfEko28ftsoauv2hqCPOxU=",
       "url": "_framework\/Angor.Browse.BlockcoreDns.wasm"
     },
     {
-      "hash": "sha256-ovyDDvuSgz3yUcRFd+1CZ2C8w9owKE4ukwMbHSlr1S0=",
+      "hash": "sha256-A0bGzmhyEjuPjeaKrxhtt6aSUVuVNcvzpsOxpJWcWJc=",
       "url": "_framework\/Angor.Browse.BlockcoreWallet.wasm"
     },
     {
-      "hash": "sha256-kChL\/37Zio7rfBUcH\/Rp5iDPUR95519FrjV9JiFs3aA=",
+      "hash": "sha256-oz2o\/fIH6BL6Xq0AxF9JgIP\/+d2md2Zl7d\/TFi4AkWM=",
       "url": "_framework\/Angor.Browse.Shared.wasm"
     },
     {
-      "hash": "sha256-29hsdgJ3L05XyYrXznC3hGo4dchDOAfnUPVV79wBIVg=",
+      "hash": "sha256-RdnChjGajUVh1bQOxpckVZKiovm221vuLC5hgl3e8q0=",
       "url": "_framework\/Angor.Browse.UniSatWallet.wasm"
     },
     {
-      "hash": "sha256-nQs5yO5jEzlbDbLndhQ6tSe05qVTLFSK2WxXhM42srs=",
+      "hash": "sha256-xRTBSCve2hXQNRtIrgniqe+9O1hneV3IP2IdJ\/tIxgU=",
       "url": "_framework\/Angor.Browse.wasm"
     },
     {
@@ -801,5 +801,5 @@
       "url": "_content\/Angor.Browse.UniSatWallet\/UniSatWallet.js"
     }
   ],
-  "version": "\/rjOAlxO"
+  "version": "5uj7NvjZ"
 };

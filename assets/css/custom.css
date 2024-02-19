@@ -117,3 +117,9 @@
     flex-direction: row-reverse;
     margin-top: 15px;
 }
+
+.rubik-moonrocks-regular {
+    font-family: "Rubik Moonrocks", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
