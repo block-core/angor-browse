@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "bitcoinjs-lib": "^6.1.5",
+    "browserify-cipher": "^1.0.1",
+    "noble-secp256k1": "^1.2.14",
+    "rxjs": "^7.8.1"
+  }
+}
