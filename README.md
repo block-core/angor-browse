@@ -1,37 +1,27 @@
-# Angor Browse - Explore Angor Projects with Ease
+# Angor Browse
 
-Welcome to Angor Browse, your go-to destination for seamless exploration of Angor projects! Angor Browse is a specialized website built on Blazor WebAssembly (Wasm) designed to enhance your experience in discovering and understanding Angor projects. 
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.0.
 
-## Key Features:
+## Development server
 
-### 1. Project Browser
-Effortlessly navigate through a user-friendly project browser that offers an enhanced view of Angor project data. Whether you're a developer, contributor, or curious enthusiast, Angor Browse ensures a smooth and intuitive exploration journey.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-### 2. Data Integration
-Retrieve real-time project data directly from the Angor indexer and Nostr relay, providing you with up-to-date information. Stay informed about the latest developments, contributors, and project milestones, all conveniently consolidated in one location.
+## Code scaffolding
 
-### 3. Blockcore Wallet Integration
-For added convenience, Angor Browse integrates seamlessly with the Blockcore Wallet. This empowers funders to contribute to projects directly through the platform, streamlining the funding process and fostering a supportive community.
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-### 4. User-Friendly Interface
-Enjoy a visually appealing and responsive interface that prioritizes user experience. Angor Browse is designed to make your exploration intuitive, engaging, and informative.
+## Build
 
-## How to Get Started:
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-1. **Visit the Website:**
-   Head over to [Angor Browse](#) and start exploring Angor projects with just a click.
+## Running unit tests
 
-2. **Effortless Navigation:**
-   Use the project browser to effortlessly navigate through Angor projects. Filter and sort projects based on your preferences, making it easy to find exactly what you're looking for.
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-3. **Real-Time Updates:**
-   Benefit from real-time updates sourced directly from the Angor indexer and Nostr relay. Stay in the loop with the latest project developments and community activities.
+## Running end-to-end tests
 
-4. **Contribute with Blockcore Wallet:**
-   Engage with your favorite projects by contributing funds through the integrated Blockcore Wallet. Support the projects you believe in and be part of the Angor community.
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Join Us in Shaping the Future of Angor Projects!
+## Further help
 
-Angor Browse is more than just a project browser; it's a gateway to a vibrant and dynamic community of Angor enthusiasts. Whether you're a developer, funder, or simply curious, Angor Browse invites you to embark on a journey of exploration and collaboration.
-
-**Explore. Connect. Contribute.**
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
