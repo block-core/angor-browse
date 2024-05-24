@@ -1,0 +1,23 @@
+<div class="container mt-10">
+    <div *ngIf="selectedProject" class="profile-container">
+        <img *ngIf="selectedProject.metadata.banner" class="profile-banner" [src]="selectedProject.metadata.banner" alt="Banner">
+        <img *ngIf="selectedProject.metadata.picture" class="profile-picture" [src]="selectedProject.metadata.picture" alt="Profile Picture">
+        <div class="profile-details">
+          <h1>{{ selectedProject.metadata.name }}</h1>
+          <p>{{ selectedProject.metadata.about }}</p>
+        </div>
+      </div>
+
+    <div class="text-box">
+      <input type="text" id="search_project" (input)="searchProjects($event)" placeholder="Search projects">
+    </div>
+    <div id="project_results" class="project-results">
+      <div *ngFor="let project of projects" (click)="selectProject(project)" class="project-card">
+        <p><strong>Project:</strong> {{ project.projectIdentifier }}</p>
+         
+      </div>
+    </div>
+  </div>
+  
+
+  
