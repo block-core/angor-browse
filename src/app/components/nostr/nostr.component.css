@@ -57,6 +57,23 @@ h1, h2 {
     margin: 15px 0;
 }
 
+.key-box {
+    background-color: #f1f1f1;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+    text-align: left;
+}
+
+.key {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    word-break: break-all;
+    border: 1px solid #ddd;
+}
+
 .input-text, .input-textarea {
     width: 100%;
     border: none;
@@ -83,4 +100,16 @@ h1, h2 {
 
 .speak-button:hover {
     background-color: #0056b3;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    background-color: #e9eef5;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }

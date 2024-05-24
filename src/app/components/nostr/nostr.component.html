@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="key-box">
+      <p><strong>Public Key:</strong></p>
+      <p class="key">{{ publicKey }}</p>
+      <p><strong>Secret Key (Hex):</strong></p>
+      <p class="key">{{ secretKeyHex }}</p>
+    </div>
+    <div class="text-box">
+      <input [(ngModel)]="relayUrl" placeholder="Relay URL" class="input-text" />
+      <button class="speak-button" (click)="connectRelay()">{{ connectButtonText }}</button>
+    </div>
+    <div class="text-box">
+      <textarea [(ngModel)]="content" placeholder="Event content" class="input-textarea"></textarea>
+      <button class="speak-button" (click)="publishEvent()">Publish Event</button>
+    </div>
+    <div>
+      <h2>Events</h2>
+      <ul>
+        <li *ngFor="let event of events">{{ event.content }}</li>
+      </ul>
+    </div>
+  </div>
+  
