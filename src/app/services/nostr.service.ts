@@ -10,15 +10,15 @@ export class NostrService {
   private secretKey: Uint8Array;
   private publicKey: string;
   private pool: SimplePool;
-  public relays: string[];
+  public relays: { url: string, connected: boolean }[];
 
   constructor() {
     this.secretKey = generateSecretKey();
     this.publicKey = getPublicKey(this.secretKey);
     this.pool = new SimplePool();
     this.relays = [
-      'wss://relay.angor.io',
-      'wss://relay2.angor.io'
+      { url: 'wss://relay.angor.io', connected: false },
+      { url: 'wss://relay2.angor.io', connected: false }
     ];
   }
 
@@ -52,16 +52,23 @@ export class NostrService {
   }
 
   async connectToRelays() {
-    const connectedRelays = await Promise.all(this.relays.map(url => Relay.connect(url)));
-    console.log(`Connected to relays: ${this.relays.join(', ')}`);
-    return connectedRelays;
+    const connections = this.relays.map(async (relay) => {
+      try {
+        await Relay.connect(relay.url);
+        relay.connected = true;
+      } catch {
+        relay.connected = false;
+      }
+    });
+    await Promise.all(connections);
+    console.log(`Connected to relays: ${this.relays.map(r => r.url).join(', ')}`);
   }
 
   async fetchMetadata(pubkey: string) {
-    const relays = await this.connectToRelays();
+    await this.connectToRelays();
     return new Promise((resolve, reject) => {
       const sub = this.pool.subscribeMany(
-        this.relays,
+        this.relays.map(r => r.url),
         [
           {
             authors: [pubkey],
@@ -86,14 +93,14 @@ export class NostrService {
 
   async publishEventToRelays(content: string) {
     const event = this.createEvent(content);
-    const publishedToAtLeastOne = await Promise.any(this.pool.publish(this.relays, event));
+    await Promise.any(this.pool.publish(this.relays.map(r => r.url), event));
     console.log('Event published:', event);
     return event;
   }
 
   subscribeToEvents(callback: (event: any) => void) {
-    const sub = this.pool.subscribeMany(
-      this.relays,
+    this.pool.subscribeMany(
+      this.relays.map(r => r.url),
       [
         {
           kinds: [1],
@@ -103,11 +110,12 @@ export class NostrService {
       {
         onevent: (event) => {
           callback(event);
-        },
-        oneose: () => {
-          sub.close();
-        },
+        }
       }
     );
+  }
+
+  addRelay(url: string) {
+    this.relays.push({ url, connected: false });
   }
 }

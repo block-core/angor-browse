@@ -10,12 +10,12 @@ export class NostrComponent implements OnInit {
   publicKey: string = '';
   secretKeyHex: string = '';
   content: string = '';
-  relayUrl: any;   
+  newRelayUrl: string = '';
   connectionStatus: string = '';
   connectButtonText: string = 'Connect to Relays';
   events: any[] = [];
 
-  constructor(private nostrService: NostrService) {}
+  constructor(public nostrService: NostrService) {}
 
   ngOnInit() {
     const keys = this.nostrService.getKeys();
@@ -26,7 +26,7 @@ export class NostrComponent implements OnInit {
   async connectRelays() {
     try {
       await this.nostrService.connectToRelays();
-      this.connectionStatus = `Connected to relays: ${this.nostrService.relays.join(', ')}`;
+      this.connectionStatus = `Connected to relays: ${this.nostrService.relays.map(r => r.url).join(', ')}`;
       this.connectButtonText = 'Connected';
       this.subscribeToEvents();
     } catch (error) {
@@ -49,5 +49,12 @@ export class NostrComponent implements OnInit {
       this.events.push(event);
       console.log('Received event:', event);
     });
+  }
+
+  addRelay() {
+    if (this.newRelayUrl) {
+      this.nostrService.addRelay(this.newRelayUrl);
+      this.newRelayUrl = '';
+    }
   }
 }

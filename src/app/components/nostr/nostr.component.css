@@ -113,3 +113,25 @@ ul li {
     border-radius: 5px;
     margin-bottom: 10px;
 }
+.relay-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .relay-list li {
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    text-align: left;
+    transition: background-color 0.3s ease;
+  }
+  
+  .relay-list .connected {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+  }
+  
+  .relay-list .disconnected {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+  }
