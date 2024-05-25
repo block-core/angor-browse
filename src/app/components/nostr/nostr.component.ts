@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Relay } from 'nostr-tools/relay';
 import { NostrService } from '../../services/nostr.service';
 
 @Component({
@@ -11,10 +10,9 @@ export class NostrComponent implements OnInit {
   publicKey: string = '';
   secretKeyHex: string = '';
   content: string = '';
-  relayUrl: string = 'wss://relay.angor.io/';
+  relayUrl: any;   
   connectionStatus: string = '';
-  connectButtonText: string = 'Connect to Relay';
-  relay?: Relay;
+  connectButtonText: string = 'Connect to Relays';
   events: any[] = [];
 
   constructor(private nostrService: NostrService) {}
@@ -25,48 +23,31 @@ export class NostrComponent implements OnInit {
     this.secretKeyHex = this.nostrService.getSecretKeyHex();
   }
 
-  async connectRelay() {
+  async connectRelays() {
     try {
-      this.relay = await this.nostrService.connectToRelay(this.relayUrl);
-      this.connectionStatus = `Connected to ${this.relay.url}`;
+      await this.nostrService.connectToRelays();
+      this.connectionStatus = `Connected to relays: ${this.nostrService.relays.join(', ')}`;
       this.connectButtonText = 'Connected';
       this.subscribeToEvents();
     } catch (error) {
-      this.connectionStatus = `Failed to connect to ${this.relayUrl}`;
-      this.connectButtonText = 'Connect to Relay';
+      this.connectionStatus = `Failed to connect to relays`;
+      this.connectButtonText = 'Connect to Relays';
     }
   }
 
   async publishEvent() {
-    if (this.relay) {
-      const event = this.nostrService.createEvent(this.content);
-      await this.relay.publish(event);
-      console.log('Event published:', event);
-      this.events.push(event);  
-    } else {
-      console.error('No relay connected');
+    try {
+      const event = await this.nostrService.publishEventToRelays(this.content);
+      this.events.push(event);
+    } catch (error) {
+      console.error('Error publishing event:', error);
     }
   }
 
   subscribeToEvents() {
-    if (this.relay) {
-      const sub = this.relay.subscribe(
-        [
-          {
-            kinds: [1],
-            authors: [this.publicKey],
-          },
-        ],
-        {
-          onevent: (event) => {
-            this.events.push(event);
-            console.log('Received event:', event);
-          },
-          oneose: () => {
-            sub.close();
-          },
-        }
-      );
-    }
+    this.nostrService.subscribeToEvents((event) => {
+      this.events.push(event);
+      console.log('Received event:', event);
+    });
   }
 }

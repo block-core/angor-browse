@@ -11,7 +11,6 @@ export class ProjectsComponent implements OnInit {
   projects: any[] = [];
   filteredProjects: any[] = [];
   selectedProject: any = null;
-  relayUrl: string = 'wss://relay.angor.io';
 
   constructor(private http: HttpClient, private nostrService: NostrService) { }
 
@@ -37,7 +36,7 @@ export class ProjectsComponent implements OnInit {
 
   selectProject(project: any) {
     this.selectedProject = project;
-    this.nostrService.fetchMetadata(project.nostrPubKey, this.relayUrl).then(metadata => {
+    this.nostrService.fetchMetadata(project.nostrPubKey).then(metadata => {
       this.selectedProject.metadata = metadata;
     }).catch(error => {
       console.error('Error fetching metadata:', error);

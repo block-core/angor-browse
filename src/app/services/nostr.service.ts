@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { generateSecretKey, getPublicKey, finalizeEvent, verifyEvent } from 'nostr-tools/pure';
 import { bytesToHex } from '@noble/hashes/utils';
-import { Relay } from 'nostr-tools/relay';
+import { SimplePool, Relay } from 'nostr-tools';
 
 @Injectable({
   providedIn: 'root',
@@ -9,10 +9,17 @@ import { Relay } from 'nostr-tools/relay';
 export class NostrService {
   private secretKey: Uint8Array;
   private publicKey: string;
+  private pool: SimplePool;
+  public relays: string[];
 
   constructor() {
     this.secretKey = generateSecretKey();
     this.publicKey = getPublicKey(this.secretKey);
+    this.pool = new SimplePool();
+    this.relays = [
+      'wss://relay.angor.io',
+      'wss://relay2.angor.io'
+    ];
   }
 
   getKeys() {
@@ -44,32 +51,63 @@ export class NostrService {
     return verifyEvent(event);
   }
 
-  async connectToRelay(url: string) {
-    const relay = await Relay.connect(url);
-    console.log(`Connected to ${relay.url}`);
-    return relay;
+  async connectToRelays() {
+    const connectedRelays = await Promise.all(this.relays.map(url => Relay.connect(url)));
+    console.log(`Connected to relays: ${this.relays.join(', ')}`);
+    return connectedRelays;
   }
 
-  async fetchMetadata(pubkey: string, relayUrl: string) {
-    const relay = await this.connectToRelay(relayUrl);
+  async fetchMetadata(pubkey: string) {
+    const relays = await this.connectToRelays();
     return new Promise((resolve, reject) => {
-      const sub = relay.subscribe([
-        {
-          authors: [pubkey],
-          kinds: [0],
-        }
-      ], {
-        onevent(event) {
-          if (event.pubkey === pubkey && event.kind === 0) {
-            resolve(JSON.parse(event.content));
-            sub.close();
+      const sub = this.pool.subscribeMany(
+        this.relays,
+        [
+          {
+            authors: [pubkey],
+            kinds: [0],
           }
-        },
-        oneose() {
-          sub.close();
-          reject(new Error('End of stream'));
+        ],
+        {
+          onevent(event) {
+            if (event.pubkey === pubkey && event.kind === 0) {
+              resolve(JSON.parse(event.content));
+              sub.close();
+            }
+          },
+          oneose() {
+            sub.close();
+            reject(new Error('End of stream'));
+          }
         }
-      });
+      );
     });
+  }
+
+  async publishEventToRelays(content: string) {
+    const event = this.createEvent(content);
+    const publishedToAtLeastOne = await Promise.any(this.pool.publish(this.relays, event));
+    console.log('Event published:', event);
+    return event;
+  }
+
+  subscribeToEvents(callback: (event: any) => void) {
+    const sub = this.pool.subscribeMany(
+      this.relays,
+      [
+        {
+          kinds: [1],
+          authors: [this.publicKey],
+        },
+      ],
+      {
+        onevent: (event) => {
+          callback(event);
+        },
+        oneose: () => {
+          sub.close();
+        },
+      }
+    );
   }
 }
