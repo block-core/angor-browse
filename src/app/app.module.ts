@@ -14,7 +14,7 @@ import { ThemeSwitcherComponent } from './components/theme-switcher/theme-switch
 import { ThemeColorComponent } from './components/theme-color/theme-color.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ThemeComponent } from './components/theme/theme.component';
- 
+   
 @NgModule({
   declarations: [AppComponent, NostrComponent, HomeComponent, ProjectsComponent, ThemeSwitcherComponent, ThemeColorComponent, ThemeComponent],
   imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule,OverlayscrollbarsModule],

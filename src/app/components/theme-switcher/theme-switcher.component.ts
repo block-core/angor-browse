@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-
+import { OverlayScrollbars } from 'overlayscrollbars';
+ 
 @Component({
   selector: 'app-theme-switcher',
   templateUrl: './theme-switcher.component.html',
@@ -26,6 +27,7 @@ export class ThemeSwitcherComponent implements OnInit {
         this.setLocalStorageItem('theme', 'dark');
       }
       this.updateIcon();
+      this.updateOverlayScrollbarsTheme();
     }
   }
 
@@ -36,6 +38,7 @@ export class ThemeSwitcherComponent implements OnInit {
         document.documentElement.setAttribute('theme', theme);
       }
       this.updateIcon();
+      this.updateOverlayScrollbarsTheme();
     }
   }
 
@@ -58,12 +61,24 @@ export class ThemeSwitcherComponent implements OnInit {
       const lightIcon = document.querySelector('.light-mode-icon') as HTMLElement;
       const darkIcon = document.querySelector('.dark-mode-icon') as HTMLElement;
       if (root.getAttribute('theme') === 'dark') {
-        lightIcon.style.display = 'none';
-        darkIcon.style.display = 'inline';
+        if (lightIcon) lightIcon.style.display = 'none';
+        if (darkIcon) darkIcon.style.display = 'inline';
       } else {
-        lightIcon.style.display = 'inline';
-        darkIcon.style.display = 'none';
+        if (lightIcon) lightIcon.style.display = 'inline';
+        if (darkIcon) darkIcon.style.display = 'none';
       }
+    }
+  }
+
+  private updateOverlayScrollbarsTheme() {
+    const theme = document.documentElement.getAttribute('theme');
+    const osInstance = OverlayScrollbars(document.body);
+    if (osInstance) {
+      osInstance.options({
+        scrollbars: {
+          theme: theme === 'dark' ? 'os-theme-light' : 'os-theme-dark'
+        }
+      });
     }
   }
 }

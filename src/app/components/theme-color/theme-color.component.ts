@@ -15,25 +15,25 @@ export class ThemeColorComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.isBrowser) {
-      this.loadSettings();
+      this.loadSettings();  // Ensure settings are loaded when the app opens
       this.setupListeners();
     }
   }
 
   loadSettings() {
-    let theme = this.getLocalStorageItem('theme');
+    const theme = this.getLocalStorageItem('theme');
     if (theme) {
       this.setTheme(theme);
     }
 
-    let showBanner = this.getLocalStorageItem('showBanner');
+    const showBanner = this.getLocalStorageItem('showBanner');
     if (showBanner === null || showBanner === undefined || showBanner === 'true') {
       this.enableBanner();
     } else {
       this.disableBanner();
     }
 
-    let hue = this.getLocalStorageItem('hue');
+    const hue = this.getLocalStorageItem('hue');
     if (hue) {
       this.setHue(hue);
     } else {
