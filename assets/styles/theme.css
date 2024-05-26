@@ -462,7 +462,7 @@ body {
   border: 1px solid #ddd;
   border-radius: 3px;
 }
-navbar,
+menu,
 .article-inner,
 #article-nav .article-nav-btn,
 .comment-card,
@@ -770,7 +770,7 @@ navbar,
   -ms-transition: background 0.15s ease-out;
   transition: background 0.15s ease-out;
 }
-navbar {
+menu {
   height: 72px;
   display: -webkit-box;
   display: -moz-box;
@@ -825,7 +825,7 @@ navbar {
 #title-nav a:active {
   background: var(--btn-text-active);
 }
-#title-nav a #vivia-logo {
+#title-nav a #angor-logo {
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
@@ -838,15 +838,11 @@ navbar {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   gap: 4px;
-  width: 20px;
-  height: 20px;
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
+  width: 30px;
+  height: 30px;
   margin-right: 20px;
 }
-#title-nav a #vivia-logo .dot {
+#title-nav a #angor-logo .dot {
   height: 8px;
   width: 8px;
   border-radius: 50%;
