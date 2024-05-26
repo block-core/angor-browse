@@ -1,0 +1,11 @@
+#color-btn {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    margin-left: 1px !important;
+  }
+  #color-btn:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }

@@ -11,14 +11,17 @@ import { ProjectsComponent } from './components/projects/projects.component';
 import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { OverlayscrollbarsModule } from "overlayscrollbars-ngx";
 import { ThemeSwitcherComponent } from './components/theme-switcher/theme-switcher.component';
-import { SettingsComponent } from './components/settings/settings.component';
+import { ThemeColorComponent } from './components/theme-color/theme-color.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ThemeComponent } from './components/theme/theme.component';
  
 @NgModule({
-  declarations: [AppComponent, NostrComponent, HomeComponent, ProjectsComponent, ThemeSwitcherComponent, SettingsComponent],
+  declarations: [AppComponent, NostrComponent, HomeComponent, ProjectsComponent, ThemeSwitcherComponent, ThemeColorComponent, ThemeComponent],
   imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule,OverlayscrollbarsModule],
   bootstrap: [AppComponent],
   providers: [
-    provideHttpClient(withFetch())  
+    provideHttpClient(withFetch()),
+    provideAnimationsAsync()  
   ],
 })
 export class AppModule { }

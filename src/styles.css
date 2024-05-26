@@ -150,3 +150,8 @@ h1, h2 {
 :root[theme='dark'] .light-mode-icon {
     display: inline;
 }
+
+.custom-dialog-container .mat-dialog-container {
+    border-radius: 10px;  
+    padding: 20px; 
+  }

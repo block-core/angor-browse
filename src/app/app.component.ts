@@ -3,7 +3,7 @@ import { Component, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
 import { OverlayScrollbars } from 'overlayscrollbars';
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-ngx';
 
- 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,7 +11,7 @@ import { OverlayScrollbarsComponent } from 'overlayscrollbars-ngx';
 })
 
 export class AppComponent {
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object ) { }
   contentHidden = false;
   elementHidden = false;
   useOverlayScrollbars = true;
@@ -21,17 +21,17 @@ export class AppComponent {
       theme: 'os-theme-dark',
     },
   };
- 
+
   @ViewChild('osRef', { read: OverlayScrollbarsComponent })
   osRef?: OverlayScrollbarsComponent;
- 
+
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.initBodyOverlayScrollbars();
     }
   }
   title = 'angor-browse';
- 
+
   initBodyOverlayScrollbars() {
     OverlayScrollbars(document.body, {
       scrollbars: {
@@ -43,6 +43,7 @@ export class AppComponent {
     });
   }
 
-}
- 
 
+
+
+}

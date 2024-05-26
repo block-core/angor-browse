@@ -3,10 +3,10 @@ import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.css']
+  templateUrl: './theme-color.component.html',
+  styleUrls: ['./theme-color.component.css']
 })
-export class SettingsComponent implements OnInit {
+export class ThemeColorComponent implements OnInit {
   isBrowser: boolean;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private renderer: Renderer2) {
@@ -52,6 +52,7 @@ export class SettingsComponent implements OnInit {
         const hue = slider.value;
         this.setHue(hue);
         if (output) output.innerText = hue;
+        slider.value = hue;
       };
     }
 
@@ -61,6 +62,7 @@ export class SettingsComponent implements OnInit {
         const hue = target.dataset['hue'];
         if (hue) {
           this.setHue(hue);
+          slider.value = hue;
         }
       };
     }
