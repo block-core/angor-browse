@@ -8,11 +8,16 @@ import { NostrComponent } from './components/nostr/nostr.component';
 import { HomeComponent } from './components/home/home.component';
 import { NostrService } from './services/nostr.service';
 import { ProjectsComponent } from './components/projects/projects.component';
-import { HttpClientModule } from '@angular/common/http';
-
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
+import { OverlayscrollbarsModule } from "overlayscrollbars-ngx";
+import { ThemeSwitcherComponent } from './components/theme-switcher/theme-switcher.component';
+ 
 @NgModule({
-  declarations: [AppComponent, NostrComponent, HomeComponent, ProjectsComponent],
-  imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule],
+  declarations: [AppComponent, NostrComponent, HomeComponent, ProjectsComponent, ThemeSwitcherComponent],
+  imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule,OverlayscrollbarsModule],
   bootstrap: [AppComponent],
+  providers: [
+    provideHttpClient(withFetch())  
+  ],
 })
 export class AppModule { }

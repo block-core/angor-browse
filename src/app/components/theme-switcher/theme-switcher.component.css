@@ -1,0 +1,26 @@
+#theme-btn {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  #theme-btn:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .light-mode-icon, .dark-mode-icon {
+    display: none;
+  }
+  
+  :root[theme="light"] .light-mode-icon {
+    display: inline;
+  }
+  
+  :root[theme="dark"] .dark-mode-icon {
+    display: inline;
+  }
+  
