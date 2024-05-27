@@ -2926,7 +2926,7 @@ input[type="range"] {
 }
 .category-link,
 .archive-link,
-.recent-link {
+.menu-link {
   height: 40px;
   display: -webkit-box;
   display: -moz-box;
@@ -2961,14 +2961,14 @@ input[type="range"] {
 }
 .category-link:hover,
 .archive-link:hover,
-.recent-link:hover {
+.menu-link:hover {
   padding-left: 12px;
   background: var(--btn-text-hover);
   color: var(--btn-text-light-text) !important;
 }
 .category-link:active,
 .archive-link:active,
-.recent-link:active {
+.menu-link:active {
   background: var(--btn-text-active);
 }
 .category-link .category-count,
@@ -3017,7 +3017,7 @@ input[type="range"] {
   -ms-flex-direction: column;
   flex-direction: column;
 }
-.recent-link .recent-link-text {
+.menu-link .menu-link-text {
   text-wrap: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;

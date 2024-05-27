@@ -1,10 +1,10 @@
 <div id="main-grid" class="shadow">
-  <div id="nav" class=" is_home ">
+  <div id="nav" class="is_home">
     <menu id="navbar">
       <nav id="title-nav">
         <a routerLink="/">
           <div id="angor-logo">
-            <img src="/assets/images/logo.svg" alt="Angor" width="30" height="30">
+            <img src="/assets/images/logo.svg" alt="Angor" width="30" height="30" />
           </div>
           <div>Angor Browse</div>
         </a>
@@ -29,30 +29,76 @@
         <a class="nav-dropdown-link" routerLink="/">Home</a>
         <a class="nav-dropdown-link" routerLink="/nostr">Nostr</a>
         <a class="nav-dropdown-link" routerLink="/projects">Projects</a>
-
       </div>
     </div>
   </div>
   <div id="sidebar-wrapper">
-
+    <div id="sidebar">
+      <div class="widget-wrap">
+        <div class="widget">
+          <h3 class="widget-title">Browse</h3>
+          <ul>
+            <a class="menu-link" href="/" title="Home">
+              <div class="menu-link-text">Home</div>
+            </a>
+            <a class="menu-link" href="/" title="Explore">
+              <div class="menu-link-text">Explore</div>
+            </a>
+            <a class="menu-link" href="/" title="Messages">
+              <div class="menu-link-text">Messages</div>
+            </a>
+            <a class="menu-link" href="/" title="Bookmarks">
+              <div class="menu-link-text">Bookmarks</div>
+            </a>
+            <a class="menu-link" href="/" title="Notifications">
+              <div class="menu-link-text">Notifications</div>
+            </a>
+            <a class="menu-link" href="/" title="Settings">
+              <div class="menu-link-text">Settings</div>
+            </a>
+            <a class="menu-link" href="/" title="Help">
+              <div class="menu-link-text">Help</div>
+            </a>
+          </ul>
+        </div>
+      </div>
+      <div class="widget-wrap">
+        <div class="info-card">
+          <div class="avatar">
+            <div class="img-dim"></div>
+          </div>
+          <div class="info">
+            <div class="username">Stay connected!</div>
+            <div class="link-list">
+              <a class="link-btn" target="_blank" rel="noopener" href="/" title="">
+              </a>
+              <a class="link-btn" target="_blank" rel="noopener" href="/" title="">
+              </a>
+              <a class="link-btn" target="_blank" rel="noopener" href="/" title="">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-
-  <div id="content-body">
-    <router-outlet></router-outlet>
+  <div id="content-wrapper">
+    <div id="content-body">
+      <router-outlet></router-outlet>
+    </div>
   </div>
-
-
   <div id="footer-wrapper">
     <footer id="footer">
-      <div id="footer-info" class="inner">
-        &copy; 2024 Angor<br>
-      </div>
+      <div id="footer-info" class="inner">&copy; 2024 Angor</div>
     </footer>
   </div>
   <div class="back-to-top-wrapper">
     <button id="back-to-top-btn" class="back-to-top-btn hide" (click)="topFunction()">
-      <i class="fa-solid fa-angle-up"></i>
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M12 7C12.2652 7 12.5196 7.10536 12.7071 7.29289L19.7071 14.2929C20.0976 14.6834 20.0976 15.3166 19.7071 15.7071C19.3166 16.0976 18.6834 16.0976 18.2929 15.7071L12 9.41421L5.70711 15.7071C5.31658 16.0976 4.68342 16.0976 4.29289 15.7071C3.90237 15.3166 3.90237 14.6834 4.29289 14.2929L11.2929 7.29289C11.4804 7.10536 11.7348 7 12 7Z"
+          fill="var(--card-btn-icon)"></path>
+      </svg>
     </button>
   </div>
 </div>

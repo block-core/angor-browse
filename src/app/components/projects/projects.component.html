@@ -1,26 +1,39 @@
-<div class="container mt-10">
-    <div *ngIf="selectedProject" class="profile-container">
-        <img *ngIf="selectedProject.metadata?.banner" class="profile-banner" [src]="selectedProject.metadata.banner" alt="Banner">
-        <img *ngIf="selectedProject.metadata?.picture" class="profile-picture" [src]="selectedProject.metadata.picture" alt="Profile Picture">
+<article id="page-" class="h-entry article article-type-page" itemprop="blogPost" itemscope
+  itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    <div class="article-main">
+      <div *ngIf="selectedProject" class="profile-container">
+        <img *ngIf="selectedProject.metadata?.banner" class="profile-banner" [src]="selectedProject.metadata.banner"
+          alt="Banner">
+        <img *ngIf="selectedProject.metadata?.picture" class="profile-picture" [src]="selectedProject.metadata.picture"
+          alt="Profile Picture">
         <div class="profile-details">
-          <h1>{{ selectedProject.metadata?.name }}</h1>
-          <p>{{ selectedProject.metadata?.about }}</p>
+          <div class="main-title-bar">
+            <div class="main-title-dot"></div>
+            <h1 class="p-name article-title" itemprop="headline name">{{ selectedProject.metadata?.name }}</h1>
+          </div>
+          <div class="e-content article-entry">
+            <p>{{ selectedProject.metadata?.about }}</p>
+          </div>
           <div class="additional-info">
-            <p *ngIf="selectedProject.metadata?.contact"><strong>Contact:</strong> {{ selectedProject.metadata.contact }}</p>
-            <p *ngIf="selectedProject.metadata?.website"><strong>Website:</strong> <a [href]="selectedProject.metadata.website" target="_blank">{{ selectedProject.metadata.website }}</a></p>
+            <p *ngIf="selectedProject.metadata?.contact"><strong>Contact:</strong> {{ selectedProject.metadata.contact
+              }}</p>
+            <p *ngIf="selectedProject.metadata?.website"><strong>Website:</strong> <a
+                [href]="selectedProject.metadata.website" target="_blank">{{ selectedProject.metadata.website }}</a></p>
           </div>
         </div>
       </div>
 
-    <div class="text-box">
-      <input type="text" id="search_project" (input)="searchProjects($event)" placeholder="Search projects">
-    </div>
-    <div id="project_results" class="project-results">
-      <div *ngFor="let project of filteredProjects" (click)="selectProject(project)" class="project-card">
-        <p><strong>Project Identifier:</strong> {{ project.projectIdentifier }}</p>
+      <div class="text-box">
+        <input type="text" id="search_project" (input)="searchProjects($event)" placeholder="Search projects">
+      </div>
+      <div id="project_results" class="project-results">
+        <div *ngFor="let project of filteredProjects" (click)="selectProject(project)" class="project-card">
+          <p><strong>Project Identifier:</strong> {{ project.projectIdentifier }}</p>
+        </div>
       </div>
     </div>
   </div>
-  
+</article>
+ 
 
-  

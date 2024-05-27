@@ -1,0 +1,189 @@
+/* Custom Responsive Adjustments */
+@media screen and (max-width: 767px) {
+    #main-grid {
+      grid-template-columns: 1fr !important;
+      grid-template-rows: auto auto auto !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  
+    #sidebar-wrapper {
+      grid-row: 3 !important;
+      grid-column-start: 1 !important;
+      grid-column-end: 2 !important;
+      margin-top: 48px !important;
+    }
+  
+    #content-body {
+      grid-column-start: 1 !important;
+      grid-column-end: 2 !important;
+      width: 100vw !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  
+    #footer-wrapper {
+      grid-row: 4 !important;
+    }
+  
+    .widget-wrap {
+      margin-bottom: 16px !important;
+    }
+  
+    .info-card .avatar {
+      width: 100% !important;
+      margin: 24px auto 16px auto !important;
+    }
+  
+    .nav-icon,
+    .main-nav-link {
+      font-size: 14px !important;
+    }
+  
+    .main-nav-link {
+      padding: 0px 8px !important;
+    }
+  
+    .menu-link .menu-link-text {
+      font-size: 14px !important;
+    }
+  
+    .archive-main-card .archive-article-link .title-inner {
+      font-size: 14px !important;
+      padding-right: 16px !important;
+    }
+  
+    .archive-main-card .archive-article-link .date {
+      width: 20% !important;
+    }
+  
+    .archive-main-card .archive-article-link .line:before {
+      width: 15% !important;
+    }
+  
+    .archive-main-card .archive-article-link .tags {
+      width: 0 !important;
+      display: none !important;
+    }
+  
+    .info-card .username {
+      font-size: 18px !important;
+    }
+  
+    .info-card .subtitle {
+      font-size: 14px !important;
+    }
+  
+    .info-card .link-list .link-btn {
+      width: 36px !important;
+      height: 36px !important;
+      font-size: 22px !important;
+    }
+  
+    .info-card {
+      padding: 0 0 16px !important;
+    }
+  
+    .widget-title {
+      font-size: 18px !important;
+    }
+  
+    .widget {
+      padding: 16px !important;
+    }
+  }
+  
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    #main-grid {
+      grid-template-columns: 1fr !important;
+      grid-template-rows: auto auto auto !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  
+    #sidebar-wrapper {
+      grid-row: 3 !important;
+      grid-column-start: 1 !important;
+      grid-column-end: 2 !important;
+      margin-top: 48px !important;
+    }
+  
+    #content-body {
+      grid-column-start: 1 !important;
+      grid-column-end: 2 !important;
+      width: 100vw !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  
+    #footer-wrapper {
+      grid-row: 4 !important;
+    }
+  
+    .widget-wrap {
+      margin-bottom: 16px !important;
+    }
+  
+    .info-card .avatar {
+      width: 240px !important;
+      margin: 24px auto 16px auto !important;
+    }
+  
+    .nav-icon,
+    .main-nav-link {
+      font-size: 14px !important;
+    }
+  
+    .main-nav-link {
+      padding: 0px 8px !important;
+    }
+  
+    .menu-link .menu-link-text {
+      font-size: 14px !important;
+    }
+  
+    .archive-main-card .archive-article-link .title-inner {
+      font-size: 14px !important;
+      padding-right: 16px !important;
+    }
+  
+    .archive-main-card .archive-article-link .date {
+      width: 20% !important;
+    }
+  
+    .archive-main-card .archive-article-link .line:before {
+      width: 15% !important;
+    }
+  
+    .archive-main-card .archive-article-link .tags {
+      width: 0 !important;
+      display: none !important;
+    }
+  
+    .info-card .username {
+      font-size: 18px !important;
+    }
+  
+    .info-card .subtitle {
+      font-size: 14px !important;
+    }
+  
+    .info-card .link-list .link-btn {
+      width: 36px !important;
+      height: 36px !important;
+      font-size: 22px !important;
+    }
+  
+    .info-card {
+      padding: 0 0 16px !important;
+    }
+  
+    .widget-title {
+      font-size: 18px !important;
+    }
+  
+    .widget {
+      padding: 16px !important;
+    }
+  }
+  
