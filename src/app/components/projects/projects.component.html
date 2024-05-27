@@ -1,7 +1,6 @@
-<article id="page-" class="h-entry article article-type-page" itemprop="blogPost" itemscope
-  itemtype="https://schema.org/BlogPosting">
-  <div class="article-inner">
-    <div class="article-main">
+<section id="page-project" class="h-entry section section-type-page">
+  <div class="section-inner">
+    <div class="section-main">
       <div *ngIf="selectedProject" class="profile-container">
         <img *ngIf="selectedProject.metadata?.banner" class="profile-banner" [src]="selectedProject.metadata.banner"
           alt="Banner">
@@ -10,9 +9,9 @@
         <div class="profile-details">
           <div class="main-title-bar">
             <div class="main-title-dot"></div>
-            <h1 class="p-name article-title" itemprop="headline name">{{ selectedProject.metadata?.name }}</h1>
+            <h1 class="p-name section-title" itemprop="headline name">{{ selectedProject.metadata?.name }}</h1>
           </div>
-          <div class="e-content article-entry">
+          <div class="e-content section-entry">
             <p>{{ selectedProject.metadata?.about }}</p>
           </div>
           <div class="additional-info">
@@ -34,6 +33,6 @@
       </div>
     </div>
   </div>
-</article>
+</section>
  
 

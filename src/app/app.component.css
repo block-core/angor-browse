@@ -48,20 +48,20 @@
       font-size: 14px !important;
     }
   
-    .archive-main-card .archive-article-link .title-inner {
+    .archive-main-card .archive-section-link .title-inner {
       font-size: 14px !important;
       padding-right: 16px !important;
     }
   
-    .archive-main-card .archive-article-link .date {
+    .archive-main-card .archive-section-link .date {
       width: 20% !important;
     }
   
-    .archive-main-card .archive-article-link .line:before {
+    .archive-main-card .archive-section-link .line:before {
       width: 15% !important;
     }
   
-    .archive-main-card .archive-article-link .tags {
+    .archive-main-card .archive-section-link .tags {
       width: 0 !important;
       display: none !important;
     }
@@ -80,16 +80,12 @@
       font-size: 22px !important;
     }
   
-    .info-card {
-      padding: 0 0 16px !important;
-    }
-  
     .widget-title {
       font-size: 18px !important;
     }
   
     .widget {
-      padding: 16px !important;
+      padding: 20px !important;
     }
   }
   
@@ -124,11 +120,6 @@
       margin-bottom: 16px !important;
     }
   
-    .info-card .avatar {
-      width: 240px !important;
-      margin: 24px auto 16px auto !important;
-    }
-  
     .nav-icon,
     .main-nav-link {
       font-size: 14px !important;
@@ -142,20 +133,20 @@
       font-size: 14px !important;
     }
   
-    .archive-main-card .archive-article-link .title-inner {
+    .archive-main-card .archive-section-link .title-inner {
       font-size: 14px !important;
       padding-right: 16px !important;
     }
   
-    .archive-main-card .archive-article-link .date {
+    .archive-main-card .archive-section-link .date {
       width: 20% !important;
     }
   
-    .archive-main-card .archive-article-link .line:before {
+    .archive-main-card .archive-section-link .line:before {
       width: 15% !important;
     }
   
-    .archive-main-card .archive-article-link .tags {
+    .archive-main-card .archive-section-link .tags {
       width: 0 !important;
       display: none !important;
     }
@@ -172,10 +163,6 @@
       width: 36px !important;
       height: 36px !important;
       font-size: 22px !important;
-    }
-  
-    .info-card {
-      padding: 0 0 16px !important;
     }
   
     .widget-title {

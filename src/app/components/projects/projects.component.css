@@ -77,6 +77,7 @@
 .text-box {
   margin-bottom: 20px;
   text-align: center;
+  margin-top: 20px;
 }
 
 input[type="text"],
