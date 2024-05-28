@@ -2959,6 +2959,7 @@ input[type="range"] {
   transition: background 0.15s ease-out, color 0.15s ease-out,
     padding 0.15s ease-out;
 }
+
 .notifications-link:hover,
 .archive-link:hover,
 .menu-link:hover {
@@ -3021,6 +3022,11 @@ input[type="range"] {
   text-wrap: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.menu-link .menu-link-text span{
+  margin-left: 10px;
 }
 ::-webkit-scrollbar {
   height: 1rem;
