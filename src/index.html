@@ -42,7 +42,14 @@
   <meta name="HandheldFriendly" content="true">
   <meta name="MobileOptimized" content="320">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
- 
+  <script>
+    (function() {
+      const theme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('theme', theme);
+      const hue = localStorage.getItem('hue') || '180';
+      document.documentElement.style.setProperty('--primary-hue', hue);
+    })();
+  </script>
   </head>
 <body data-overlayscrollbars-initialize>
   <app-root></app-root>

@@ -1,36 +1,46 @@
-<div class="container">
-    <div class="key-box">
-      <p><strong>Public Key:</strong></p>
-      <p class="key">{{ publicKey }}</p>
-      <p><strong>Secret Key (Hex):</strong></p>
-      <p class="key">{{ secretKeyHex }}</p>
+
+  
+  <section id="page-home" class="h-entry section section-type-page">
+    <div class="section-inner">
+      <div class="section-main">
+  
+        <div class="container">
+          <div class="key-box">
+            <p><strong>Public Key:</strong></p>
+            <p class="key">{{ publicKey }}</p>
+            <p><strong>Secret Key (Hex):</strong></p>
+            <p class="key">{{ secretKeyHex }}</p>
+          </div>
+          <div class="text-box">
+            <input [(ngModel)]="newRelayUrl" placeholder="New Relay URL" class="input-text" />
+            <button class="speak-button" (click)="addRelay()">Add Relay</button>
+          </div>
+          <div class="text-box">
+            <button class="speak-button" (click)="connectRelays()">{{ connectButtonText }}</button>
+          </div>
+          <div class="text-box">
+            <textarea [(ngModel)]="content" placeholder="Event content" class="input-textarea"></textarea>
+            <button class="speak-button" (click)="publishEvent()">Publish Event</button>
+          </div>
+          <div>
+            <h2>Relays</h2>
+            <ul class="relay-list">
+              <li *ngFor="let relay of nostrService.relays" [ngClass]="{'connected': relay.connected, 'disconnected': !relay.connected}">
+                {{ relay.url }}
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h2>Events</h2>
+            <ul class="event-list">
+              <li *ngFor="let event of events">
+                <pre>{{ event.content }}</pre>
+              </li>
+            </ul>
+          </div>
+        </div>
+          
+      </div>
     </div>
-    <div class="text-box">
-      <input [(ngModel)]="newRelayUrl" placeholder="New Relay URL" class="input-text" />
-      <button class="speak-button" (click)="addRelay()">Add Relay</button>
-    </div>
-    <div class="text-box">
-      <button class="speak-button" (click)="connectRelays()">{{ connectButtonText }}</button>
-    </div>
-    <div class="text-box">
-      <textarea [(ngModel)]="content" placeholder="Event content" class="input-textarea"></textarea>
-      <button class="speak-button" (click)="publishEvent()">Publish Event</button>
-    </div>
-    <div>
-      <h2>Relays</h2>
-      <ul class="relay-list">
-        <li *ngFor="let relay of nostrService.relays" [ngClass]="{'connected': relay.connected, 'disconnected': !relay.connected}">
-          {{ relay.url }}
-        </li>
-      </ul>
-    </div>
-    <div>
-      <h2>Events</h2>
-      <ul class="event-list">
-        <li *ngFor="let event of events">
-          <pre>{{ event.content }}</pre>
-        </li>
-      </ul>
-    </div>
-  </div>
+  </section>
   
