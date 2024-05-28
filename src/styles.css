@@ -36,7 +36,9 @@ textarea {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   }
 }
-
+path{
+  fill:var(--card-btn-icon);
+}
  .custom-dialog-container .mat-dialog-container {
     border-radius: 10px;  
     padding: 20px; 

@@ -173,4 +173,11 @@
       padding: 16px !important;
     }
   }
+  .notifications-link-text{
+    display: flex;
+    align-items: center;
+  }
+  .notifications-link-text span{
+    margin-left: 10px;
+  }
   
