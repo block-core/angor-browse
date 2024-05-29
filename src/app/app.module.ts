@@ -10,13 +10,19 @@ import { NostrService } from './services/nostr.service';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { OverlayscrollbarsModule } from "overlayscrollbars-ngx";
-import { ThemeSwitcherComponent } from './components/theme-switcher/theme-switcher.component';
-import { ThemeColorComponent } from './components/theme-color/theme-color.component';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+  import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ThemeComponent } from './components/theme/theme.component';
+import { ThemeSwitcherComponent } from './components/theme/theme-switcher/theme-switcher.component';
+import { ThemeColorComponent } from './components/theme/theme-color/theme-color.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { HelpComponent } from './components/help/help.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
+import { BookmarksComponent } from './components/bookmarks/bookmarks.component';
+import { MessagesComponent } from './components/messages/messages.component';
+import { ExploreComponent } from './components/explore/explore.component';
    
 @NgModule({
-  declarations: [AppComponent, NostrComponent, HomeComponent, ProjectsComponent, ThemeSwitcherComponent, ThemeColorComponent, ThemeComponent],
+  declarations: [AppComponent, NostrComponent, HomeComponent, ProjectsComponent, ThemeSwitcherComponent, ThemeColorComponent, ThemeComponent, SettingsComponent, HelpComponent, NotificationsComponent, BookmarksComponent, MessagesComponent, ExploreComponent],
   imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule,OverlayscrollbarsModule],
   bootstrap: [AppComponent],
   providers: [

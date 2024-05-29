@@ -3,11 +3,23 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { NostrComponent } from './components/nostr/nostr.component';
 import { ProjectsComponent } from './components/projects/projects.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { ExploreComponent } from './components/explore/explore.component';
+import { MessagesComponent } from './components/messages/messages.component';
+import { BookmarksComponent } from './components/bookmarks/bookmarks.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
+import { HelpComponent } from './components/help/help.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'nostr', component: NostrComponent },
-  { path: 'projects',component:ProjectsComponent}
+  { path: 'projects',component:ProjectsComponent},
+  { path: 'explore',component:ExploreComponent},
+  { path: 'messages',component:MessagesComponent},
+  { path: 'bookmarks',component:BookmarksComponent},
+  { path: 'notifications',component:NotificationsComponent},
+  { path: 'setings',component:SettingsComponent},
+  { path: 'help',component:HelpComponent}
 ];
 
 @NgModule({

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
    import { MatDialog } from '@angular/material/dialog';
-import { ThemeColorComponent } from '../theme-color/theme-color.component';
-  
+import { ThemeColorComponent } from './theme-color/theme-color.component';
+   
 @Component({
   selector: 'app-theme',
   templateUrl: './theme.component.html',
