@@ -1,46 +1,84 @@
+<section id="nostr-auth" class="section">
+  <div class="container auth-container">
+    <h2>Authenticate with Nostr</h2>
+    <button class="auth-button" (click)="loginWithNostrExtension()">Login with Nostr Extension</button>
+    <p>or</p>
+    <button class="auth-button" (click)="generateNewAccount()">Generate New Account</button>
+  </div>
+</section>
 
-  
-  <section id="page-home" class="h-entry section section-type-page">
-    <div class="section-inner">
-      <div class="section-main">
-  
-        <div class="container">
-          <div class="key-box">
-            <p><strong>Public Key:</strong></p>
-            <p class="key">{{ publicKey }}</p>
-            <p><strong>Secret Key (Hex):</strong></p>
-            <p class="key">{{ secretKeyHex }}</p>
+
+
+<section *ngIf="isAuthenticated" id="nostr-main" class="section">
+  <div class="container main-container">
+    <div *ngIf="accountType === 'new'" class="account-info">
+      <h2>New Nostr Account</h2>
+      <p><strong>Public Key: </strong> <span class="key">{{ publicKey }}</span></p>
+      <p><strong>Private Key: </strong> <span class="key">{{ secretKeyHex }}</span></p>
+    </div>
+    <div *ngIf="accountType === 'extension'" class="account-info">
+      <h2>Nostr Extension</h2>
+      <p><strong>Public Key:</strong> <span class="key">{{ publicKey }}</span></p>
+      <div *ngIf="metadata" class="profile-container">
+        <img *ngIf="metadata.banner" class="profile-banner" [src]="metadata.banner" alt="Banner">
+        <img *ngIf="metadata.picture" class="profile-picture" [src]="metadata.picture" alt="Profile Picture">
+        <div class="profile-details">
+          <div class="main-title-bar">
+            <div class="main-title-dot"></div>
+            <h1 class="p-name section-title" itemprop="headline name">{{ metadata.name }}</h1>
           </div>
-          <div class="text-box">
-            <input [(ngModel)]="newRelayUrl" placeholder="New Relay URL" class="input-text" />
-            <button class="speak-button" (click)="addRelay()">Add Relay</button>
+          <div class="e-content section-entry">
+            <p>{{ metadata.about }}</p>
           </div>
-          <div class="text-box">
-            <button class="speak-button" (click)="connectRelays()">{{ connectButtonText }}</button>
-          </div>
-          <div class="text-box">
-            <textarea [(ngModel)]="content" placeholder="Event content" class="input-textarea"></textarea>
-            <button class="speak-button" (click)="publishEvent()">Publish Event</button>
-          </div>
-          <div>
-            <h2>Relays</h2>
-            <ul class="relay-list">
-              <li *ngFor="let relay of nostrService.relays" [ngClass]="{'connected': relay.connected, 'disconnected': !relay.connected}">
-                {{ relay.url }}
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h2>Events</h2>
-            <ul class="event-list">
-              <li *ngFor="let event of events">
-                <pre>{{ event.content }}</pre>
-              </li>
-            </ul>
+          <div class="additional-info">
+            <p *ngIf="metadata.contact"><strong>Contact:</strong> {{ metadata.contact }}</p>
+            <p *ngIf="metadata.website"><strong>Website:</strong> <a [href]="metadata.website" target="_blank">{{ metadata.website }}</a></p>
           </div>
         </div>
-          
       </div>
     </div>
-  </section>
-  
+
+    <hr>
+
+    <div class="relays-section">
+      <button class="action-button" (click)="fetchAndAddPublicRelays()">Fetch and Add Public Relays</button>
+    </div>
+
+    <hr>
+
+    <div class="event-section">
+      <textarea [(ngModel)]="eventContent" placeholder="Enter your event content" class="input-textarea"></textarea>
+      <button class="action-button" (click)="signAndPublishEvent()">Sign and Publish Event</button>
+      <p *ngIf="publishedEventContent"><strong>Published Event:</strong> <span class="key">{{ publishedEventContent }}</span></p>
+    </div>
+
+    <hr>
+
+    <div class="add-relay-section">
+      <input [(ngModel)]="newRelayUrl" placeholder="New Relay URL" class="input-text" />
+      <button class="action-button" (click)="addRelay()">Add Relay</button>
+      <button class="action-button" (click)="connectRelays()">{{ connectButtonText }}</button>
+      <div *ngIf="connectionStatus">
+        <p><strong>Connection Status:</strong> {{ connectionStatus }}</p>
+      </div>
+    </div>
+
+    <div>
+      <h2>Relays</h2>
+      <ul class="relay-list">
+        <li *ngFor="let relay of relays" [ngClass]="{'connected': relay.connected, 'disconnected': !relay.connected}">
+          {{ relay.url }}
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <h2>Events</h2>
+      <ul class="event-list">
+        <li *ngFor="let event of events">
+          <pre>{{ event.content }}</pre>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>

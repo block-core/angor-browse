@@ -22,6 +22,15 @@ export class NostrService {
     ];
   }
 
+  generateNewAccount() {
+    this.secretKey = generateSecretKey();
+    this.publicKey = getPublicKey(this.secretKey);
+    return {
+      publicKey: this.publicKey,
+      secretKeyHex: bytesToHex(this.secretKey),
+    };
+  }
+
   getKeys() {
     return {
       secretKey: this.secretKey,
@@ -91,8 +100,7 @@ export class NostrService {
     });
   }
 
-  async publishEventToRelays(content: string) {
-    const event = this.createEvent(content);
+  async publishEventToRelays(event: any) {
     await Promise.any(this.pool.publish(this.relays.map(r => r.url), event));
     console.log('Event published:', event);
     return event;
