@@ -1,0 +1,24 @@
+<section id="page-project" class="h-entry section section-type-page">
+    <div class="section-inner">
+      <div class="section-main">
+        <div *ngIf="selectedProject" class="profile-container">
+          <img *ngIf="selectedProject.banner" class="profile-banner" [src]="selectedProject.banner" alt="Banner">
+          <img *ngIf="selectedProject.picture" class="profile-picture" [src]="selectedProject.picture" alt="Profile Picture">
+          <div class="profile-details">
+            <div class="main-title-bar">
+              <div class="main-title-dot"></div>
+              <h1 class="p-name section-title" itemprop="headline name">{{ selectedProject.name }}</h1>
+            </div>
+            <div class="e-content section-entry">
+              <p>{{ selectedProject.about }}</p>
+            </div>
+            <div class="additional-info">
+              <p *ngIf="selectedProject.additionalData?.display_name"><strong>Display Name:</strong> {{ selectedProject.additionalData.display_name }}</p>
+              <p *ngIf="selectedProject.additionalData?.website"><strong>Website:</strong> <a [href]="selectedProject.additionalData.website" target="_blank">{{ selectedProject.additionalData.website }}</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

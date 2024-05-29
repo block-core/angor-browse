@@ -57,7 +57,7 @@ export class NostrComponent implements OnInit {
           this.nostrService.addRelay(relayUrl);
         });
       }
-      this.relays = this.nostrService.relays;
+      this.relays = this.nostrService.relayService.relays;
 
       this.isAuthenticated = true;
       this.accountType = 'extension';
@@ -109,7 +109,7 @@ export class NostrComponent implements OnInit {
         });
       }
 
-      this.relays = this.nostrService.relays;
+      this.relays = this.nostrService.relayService.relays;
     } catch (error) {
       console.error('Failed to fetch public relays from extension:', error);
     }
@@ -143,10 +143,10 @@ export class NostrComponent implements OnInit {
 
   async connectRelays() {
     try {
-      await this.nostrService.connectToRelays();
-      this.connectionStatus = `Connected to relays: ${this.nostrService.relays.map(r => r.url).join(', ')}`;
+      await this.nostrService.relayService.connectToRelays();
+      this.connectionStatus = `Connected to relays: ${this.nostrService.relayService.relays.map(r => r.url).join(', ')}`;
       this.connectButtonText = 'Connected';
-      this.relays = this.nostrService.relays;
+      this.relays = this.nostrService.relayService.relays;
       this.subscribeToEvents();
     } catch (error) {
       this.connectionStatus = `Failed to connect to relays`;

@@ -301,6 +301,7 @@ a img {
 }
 a {
   text-decoration: none;
+  color: var(--link);
 }
 @font-face {
   font-family: Roboto;
@@ -1077,7 +1078,6 @@ menu {
   transition: background 0.15s ease-out;
   width: 100%;
   padding: 16px;
-  
 }
 .section-meta:before,
 .section-meta:after {

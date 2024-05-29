@@ -27,6 +27,7 @@
   .project-card:active {
     transform: scale(0.98);
   }
+  
   .profile-container {
     display: flex;
     flex-direction: column;
@@ -52,10 +53,7 @@
   
   .profile-details {
     padding: 20px;
-    width: 100%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 0 0 8px 8px;
-  }
+   }
   
   .profile-details h1 {
     margin: 10px 0;
@@ -135,14 +133,6 @@
     transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     cursor: pointer;
   }
-  
-  .project-card:hover {
-    background: var(--input-field-hover);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    transform: scale(1.02);
+  .section-main {
+    padding: 0 !important;
   }
-  
-  .project-card:active {
-    transform: scale(0.98);
-  }
-   

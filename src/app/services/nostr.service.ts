@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { generateSecretKey, getPublicKey, finalizeEvent, verifyEvent } from 'nostr-tools/pure';
+import { generateSecretKey, getPublicKey, finalizeEvent, verifyEvent } from 'nostr-tools';
 import { bytesToHex } from '@noble/hashes/utils';
-import { SimplePool, Relay } from 'nostr-tools';
+import { RelayService } from './relay.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,20 +9,15 @@ import { SimplePool, Relay } from 'nostr-tools';
 export class NostrService {
   private secretKey: Uint8Array;
   private publicKey: string;
-  private pool: SimplePool;
-  public relays: { url: string, connected: boolean }[];
+  public relayService: RelayService;
 
-  constructor() {
+  constructor(relayService: RelayService) {
     this.secretKey = generateSecretKey();
     this.publicKey = getPublicKey(this.secretKey);
-    this.pool = new SimplePool();
-    this.relays = [
-      { url: 'wss://relay.angor.io', connected: false },
-      { url: 'wss://relay2.angor.io', connected: false }
-    ];
+    this.relayService = relayService;
   }
 
-  generateNewAccount() {
+  generateNewAccount(): { publicKey: string; secretKeyHex: string } {
     this.secretKey = generateSecretKey();
     this.publicKey = getPublicKey(this.secretKey);
     return {
@@ -31,22 +26,22 @@ export class NostrService {
     };
   }
 
-  getKeys() {
+  getKeys(): { secretKey: Uint8Array; publicKey: string } {
     return {
       secretKey: this.secretKey,
       publicKey: this.publicKey,
     };
   }
 
-  getSecretKeyHex() {
+  getSecretKeyHex(): string {
     return bytesToHex(this.secretKey);
   }
 
-  getPublicKeyHex() {
+  getPublicKeyHex(): string {
     return this.publicKey;
   }
 
-  createEvent(content: string) {
+  createEvent(content: string): any {
     const eventTemplate = {
       kind: 1,
       created_at: Math.floor(Date.now() / 1000),
@@ -56,33 +51,31 @@ export class NostrService {
     return finalizeEvent(eventTemplate, this.secretKey);
   }
 
-  verifyEvent(event: any) {
+  verifyEvent(event: any): boolean {
     return verifyEvent(event);
   }
 
-  async connectToRelays() {
-    const connections = this.relays.map(async (relay) => {
-      try {
-        await Relay.connect(relay.url);
-        relay.connected = true;
-      } catch {
-        relay.connected = false;
-      }
-    });
-    await Promise.all(connections);
-    console.log(`Connected to relays: ${this.relays.map(r => r.url).join(', ')}`);
+  async ensureRelaysConnected(): Promise<void> {
+    await this.relayService.ensureConnectedRelays();
   }
 
-  async fetchMetadata(pubkey: string) {
-    await this.connectToRelays();
+  async fetchMetadata(pubkey: string): Promise<any> {
+    await this.ensureRelaysConnected(); // Ensure relays are connected before fetching metadata
+    const pool = this.relayService.getPool();
+    const connectedRelays = this.relayService.getConnectedRelays();
+
+    if (connectedRelays.length === 0) {
+      throw new Error('No connected relays');
+    }
+
     return new Promise((resolve, reject) => {
-      const sub = this.pool.subscribeMany(
-        this.relays.map(r => r.url),
+      const sub = pool.subscribeMany(
+        connectedRelays,
         [
           {
             authors: [pubkey],
             kinds: [0],
-          }
+          },
         ],
         {
           onevent(event) {
@@ -93,37 +86,49 @@ export class NostrService {
           },
           oneose() {
             sub.close();
-            reject(new Error('End of stream'));
+            reject(new Error('End of stream: No metadata found for the given public key.'));
           }
         }
       );
     });
   }
 
-  async publishEventToRelays(event: any) {
-    await Promise.any(this.pool.publish(this.relays.map(r => r.url), event));
-    console.log('Event published:', event);
-    return event;
+  async publishEventToRelays(event: any): Promise<any> {
+    await this.ensureRelaysConnected();
+    const pool = this.relayService.getPool();
+    const connectedRelays = this.relayService.getConnectedRelays();
+    try {
+      await Promise.any(pool.publish(connectedRelays, event));
+      console.log('Event published:', event);
+      return event;
+    } catch (error) {
+      console.error('Failed to publish event:', error);
+      throw error;
+    }
   }
 
-  subscribeToEvents(callback: (event: any) => void) {
-    this.pool.subscribeMany(
-      this.relays.map(r => r.url),
-      [
+  subscribeToEvents(callback: (event: any) => void): void {
+    this.ensureRelaysConnected().then(() => {
+      const pool = this.relayService.getPool();
+      const connectedRelays = this.relayService.getConnectedRelays();
+      pool.subscribeMany(
+        connectedRelays,
+        [
+          {
+            kinds: [1],
+            authors: [this.publicKey],
+          },
+        ],
         {
-          kinds: [1],
-          authors: [this.publicKey],
-        },
-      ],
-      {
-        onevent: (event) => {
-          callback(event);
+          onevent: (event) => {
+            callback(event);
+          }
         }
-      }
-    );
+      );
+    });
   }
 
-  addRelay(url: string) {
-    this.relays.push({ url, connected: false });
+  addRelay(url: string): void {
+    this.relayService.addRelay(url);
   }
 }
