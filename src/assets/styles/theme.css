@@ -556,7 +556,7 @@ menu,
 .comment-card .main-title,
 .archive-main-card .archive-title {
   text-decoration: none;
-  font-size: 32px;
+  font-size: 24px;
   font-weight: bold;
   color: var(--main-title);
   line-height: 40px;
@@ -1177,11 +1177,11 @@ menu {
   margin: 0 12px 1em;
 }
 .section-header {
-  padding: 32px 40px 0;
+  padding: 10px 30px 0;
 }
 @media screen and (max-width: 767px) {
   .section-header {
-    padding: 32px 28px 0;
+    padding: 10px 28px 0;
   }
 }
 .section-header h1 {
@@ -1853,7 +1853,7 @@ a.section-title:active {
 .comment-card .vcount {
   color: var(--neut-L50) !important;
 }
-.comment-card .vhead .vnick , p {
+.comment-card .vhead .vnick , p , section-title{
   color: var(--neut-L90) !important;
 }
 .comment-card .vhead .vnick:hover {
@@ -1936,8 +1936,7 @@ a.section-title:active {
 .archive-section-title {
   text-decoration: none;
   font-weight: bold;
-  color: #555;
-  -webkit-transition: color 0.2s;
+   -webkit-transition: color 0.2s;
   -moz-transition: color 0.2s;
   -ms-transition: color 0.2s;
   transition: color 0.2s;

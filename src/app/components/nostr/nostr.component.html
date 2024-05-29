@@ -38,13 +38,13 @@
       </div>
     </div>
 
-    <hr>
+ 
 
     <div class="relays-section">
       <button class="action-button" (click)="fetchAndAddPublicRelays()">Fetch and Add Public Relays</button>
     </div>
 
-    <hr>
+ 
 
     <div class="event-section">
       <textarea [(ngModel)]="eventContent" placeholder="Enter your event content" class="input-textarea"></textarea>
@@ -52,10 +52,10 @@
       <p *ngIf="publishedEventContent"><strong>Published Event:</strong> <span class="key">{{ publishedEventContent }}</span></p>
     </div>
 
-    <hr>
+ 
 
     <div class="add-relay-section">
-      <input [(ngModel)]="newRelayUrl" placeholder="New Relay URL" class="input-text" />
+      <input [(ngModel)]="newRelayUrl" placeholder="New Relay URL" type="text" />
       <button class="action-button" (click)="addRelay()">Add Relay</button>
       <button class="action-button" (click)="connectRelays()">{{ connectButtonText }}</button>
       <div *ngIf="connectionStatus">

@@ -16,7 +16,9 @@ h2 {
 }
 
 .auth-button, .action-button  {
-    margin: 15px;
+    background: none;
+    border: 0;
+    margin: 15px 0;
     color: var(--btn-text-content);
     height: 52px;
     border-radius: 8px;
@@ -52,7 +54,6 @@ p {
 }
 
 .key-box, .account-info {
-    background-color: #f1f1f1;
     padding: 20px;
     border-radius: 8px;
     margin: 15px 0;
@@ -61,17 +62,14 @@ p {
 
 .key {
     font-family: 'Courier New', Courier, monospace;
-    background-color: #fff;
     padding: 10px;
     border-radius: 5px;
     word-break: break-all;
-    border: 1px solid #ddd;
-}
+
+background: var(--input-field);}
 
 .input-text, .input-textarea {
     width: 100%;
-    border: 1px solid #ddd;
-    background: #fff;
     resize: none;
     outline: none;
     padding: 10px;
@@ -80,6 +78,7 @@ p {
     border-radius: 5px;
     box-sizing: border-box;
     margin-bottom: 10px;
+    border: 1px solid #9a9a9a;
 }
 
 ul {
@@ -178,46 +177,3 @@ ul li {
     margin: 5px 0;
 }
 
-.text-box {
-    margin-bottom: 20px;
-    text-align: center;
-    margin-top: 20px;
-}
-
-input[type="text"],
-textarea {
-    background: var(--input-field) !important;
-    border-radius: 8px !important;
-    padding: 12px 16px !important;
-    border: none !important;
-    font-size: 14px !important;
-    color: var(--neut-L75) !important;
-    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-input[type="text"]::placeholder,
-textarea::placeholder {
-    color: var(--neut-L30);
-}
-
-input[type="text"]:focus,
-textarea:focus {
-    outline: none;
-    background: var(--input-field-hover) !important;
-    box-shadow: 0 0 0 3px rgba(63, 132, 244, 0.2);
-    transform: scale(1.02);
-}
-
-textarea {
-    padding: 16px !important;
-    resize: vertical;
-}
-
-@media (hover: hover) {
-    input[type="text"]:hover,
-    textarea:hover {
-        background: var(--input-field-hover) !important;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    }
-}
