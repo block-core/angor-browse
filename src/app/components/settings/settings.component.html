@@ -20,42 +20,59 @@
 </section>
 
 <section id="indexers" class="h-entry section section-type-page">
-    <div class="section-inner">
-      <div class="section-main">
-        <header class="section-header">
-          <div class="main-title-bar">
-            <div class="main-title-dot"></div>
-            <h1 itemprop="name">
-              <span class="section-title">Indexers</span>
-            </h1>
-          </div>
-          <div class="meta-info-bar">
-            <div class="meta-info">Angor Indexers</div>
-          </div>
-        </header>
-        <div class="e-content section-entry" itemprop="sectionBody">
-          <p>Description</p>
+  <div class="section-inner">
+    <div class="section-main">
+      <header class="section-header">
+        <div class="main-title-bar">
+          <div class="main-title-dot"></div>
+          <h1 itemprop="name">
+            <span class="section-title">Indexers</span>
+          </h1>
         </div>
+        <div class="meta-info-bar">
+          <div class="meta-info">Angor Indexers</div>
+        </div>
+      </header>
+      <div class="e-content section-entry" itemprop="sectionBody">
+        <p>Description</p>
       </div>
     </div>
-  </section>
-  <section id="relays" class="h-entry section section-type-page">
-    <div class="section-inner">
-      <div class="section-main">
-        <header class="section-header">
-          <div class="main-title-bar">
-            <div class="main-title-dot"></div>
-            <h1 itemprop="name">
-              <span class="section-title">Relays</span>
-            </h1>
-          </div>
-          <div class="meta-info-bar">
-            <div class="meta-info">NOSTR Relays</div>
-          </div>
-        </header>
-        <div class="e-content section-entry" itemprop="sectionBody">
-          <p>Description</p>
+  </div>
+</section>
+
+<section id="relays" class="h-entry section section-type-page">
+  <div class="section-inner">
+    <div class="section-main">
+      <header class="section-header">
+        <div class="main-title-bar">
+          <div class="main-title-dot"></div>
+          <h1 itemprop="name">
+            <span class="section-title">Relays</span>
+          </h1>
         </div>
+        <div class="meta-info-bar">
+          <div class="meta-info">{{ relays.length }} relay</div>
+        </div>
+      </header>
+
+      <div class="add-relay-section">
+        <input [(ngModel)]="newRelayUrl" placeholder="New Relay URL" type="text" class="relay-input"/>
+        <button  class="action-button" (click)="addRelay()">Add Relay</button>
+      </div>
+      
+      <div class="relay-main-card">
+ 
+        <span class="relay-section-link" title="Code Highlight Style test" *ngFor="let relay of relays">
+          <input type="checkbox" [(ngModel)]="relay.connected" (change)="toggleRelayStatus(relay)" />
+          <div class="line">
+            <div class="dot"></div>
+          </div>
+          <div class="title">
+            <div class="title-inner"> {{ relay.url }}</div>
+          </div>
+          <div class="relay-status">{{ relay.connected ? "Connected" : "Disconnected" }}</div>
+        </span>
       </div>
     </div>
-  </section>
+  </div>
+</section>

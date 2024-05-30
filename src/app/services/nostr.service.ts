@@ -206,7 +206,14 @@ export class NostrService {
     });
   }
 
-  addRelay(url: string): void {
-    this.relayService.addRelay(url);
+  addRelay(url: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      try {
+        this.relayService.addRelay(url);
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    });
   }
 }

@@ -24,6 +24,7 @@ import { BookmarksComponent } from './components/bookmarks/bookmarks.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { ExploreComponent } from './components/explore/explore.component';
 import { ProjectDetailsComponent } from './components/project-details/project-details.component';
+import { MatDialogModule } from '@angular/material/dialog';
  
 @NgModule({
   declarations: [
@@ -40,7 +41,6 @@ import { ProjectDetailsComponent } from './components/project-details/project-de
     MessagesComponent,
     ExploreComponent,
     ProjectDetailsComponent,
-    
   ],
   imports: [
     BrowserModule,
@@ -48,6 +48,8 @@ import { ProjectDetailsComponent } from './components/project-details/project-de
     AppRoutingModule,
     HttpClientModule,
     OverlayscrollbarsModule,
+     MatDialogModule,
+     FormsModule
   ],
   bootstrap: [AppComponent],
   providers: [provideHttpClient(withFetch()), provideAnimationsAsync()],

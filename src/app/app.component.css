@@ -47,25 +47,7 @@
     .menu-link .menu-link-text {
       font-size: 14px !important;
     }
-  
-    .archive-main-card .archive-section-link .title-inner {
-      font-size: 14px !important;
-      padding-right: 16px !important;
-    }
-  
-    .archive-main-card .archive-section-link .date {
-      width: 20% !important;
-    }
-  
-    .archive-main-card .archive-section-link .line:before {
-      width: 15% !important;
-    }
-  
-    .archive-main-card .archive-section-link .tags {
-      width: 0 !important;
-      display: none !important;
-    }
-  
+ 
     .info-card .username {
       font-size: 18px !important;
     }
@@ -133,20 +115,20 @@
       font-size: 14px !important;
     }
   
-    .archive-main-card .archive-section-link .title-inner {
+    .relay-main-card .relay-section-link .title-inner {
       font-size: 14px !important;
       padding-right: 16px !important;
     }
   
-    .archive-main-card .archive-section-link .date {
+    .relay-main-card .relay-section-link .date {
       width: 20% !important;
     }
   
-    .archive-main-card .archive-section-link .line:before {
+    .relay-main-card .relay-section-link .line:before {
       width: 15% !important;
     }
   
-    .archive-main-card .archive-section-link .tags {
+    .relay-main-card .relay-section-link .tags {
       width: 0 !important;
       display: none !important;
     }

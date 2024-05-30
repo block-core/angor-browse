@@ -13,32 +13,52 @@ export class RelayService {
 
   constructor() {
     this.pool = new SimplePool();
-    this.relays = [
-      { url: 'wss://relay.angor.io', connected: false },
-      { url: 'wss://relay2.angor.io', connected: false },
-    ];
+    this.relays = this.loadRelaysFromLocalStorage();
   }
 
-  private async connectToRelay(relay: { url: any; connected: any; }): Promise<void> {
+  private loadRelaysFromLocalStorage(): { url: string, connected: boolean }[] {
+    const defaultRelays = [
+      { url: 'wss://relay.angor.io', connected: false },
+      { url: 'wss://relay2.angor.io', connected: false }
+    ];
+    if (typeof localStorage !== 'undefined') {
+      const storedRelays = JSON.parse(localStorage.getItem('nostrRelays') || '[]');
+      return [...defaultRelays, ...storedRelays];
+    }
+    return defaultRelays;
+  }
+
+  public saveRelaysToLocalStorage() {
+    if (typeof localStorage !== 'undefined') {
+      const customRelays = this.relays.filter(relay => !['wss://relay.angor.io', 'wss://relay2.angor.io'].includes(relay.url));
+      localStorage.setItem('nostrRelays', JSON.stringify(customRelays));
+    }
+  }
+
+  private async connectToRelay(relay: { url: string; connected: boolean }): Promise<void> {
     try {
       const ws = new WebSocket(relay.url);
       ws.onopen = () => {
         relay.connected = true;
         console.log(`Connected to relay: ${relay.url}`);
+        this.saveRelaysToLocalStorage();
       };
       ws.onerror = (error) => {
         relay.connected = false;
         console.error(`Failed to connect to relay: ${relay.url}`, error);
+        this.saveRelaysToLocalStorage();
       };
       ws.onclose = () => {
         relay.connected = false;
         console.log(`Disconnected from relay: ${relay.url}`);
         setTimeout(() => this.connectToRelay(relay), this.retryInterval); // Retry connection after interval
+        this.saveRelaysToLocalStorage();
       };
     } catch (error) {
       relay.connected = false;
       console.error(`Failed to connect to relay: ${relay.url}`, error);
       setTimeout(() => this.connectToRelay(relay), this.retryInterval); // Retry connection after interval
+      this.saveRelaysToLocalStorage();
     }
   }
 
