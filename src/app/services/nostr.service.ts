@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { generateSecretKey, getPublicKey, finalizeEvent, verifyEvent } from 'nostr-tools';
 import { bytesToHex } from '@noble/hashes/utils';
 import { RelayService } from './relay.service';
+import { User } from '../../models/user.model';
+import { Subject } from 'rxjs';
+import { StateService } from './state.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +14,7 @@ export class NostrService {
   private publicKey: string;
   public relayService: RelayService;
 
-  constructor(relayService: RelayService) {
+  constructor(relayService: RelayService, private stateService: StateService) {
     this.secretKey = generateSecretKey();
     this.publicKey = getPublicKey(this.secretKey);
     this.relayService = relayService;
@@ -65,7 +68,7 @@ export class NostrService {
     const connectedRelays = this.relayService.getConnectedRelays();
 
     if (connectedRelays.length === 0) {
-      throw new Error('No connected relays');
+      return Promise.reject(new Error('No connected relays'));
     }
 
     return new Promise((resolve, reject) => {
@@ -80,13 +83,19 @@ export class NostrService {
         {
           onevent(event) {
             if (event.pubkey === pubkey && event.kind === 0) {
-              resolve(JSON.parse(event.content));
+              try {
+                const content = JSON.parse(event.content);
+                resolve(content);
+              } catch (error) {
+                console.error('Error parsing event content:', error);
+                resolve(null);
+              }
               sub.close();
             }
           },
           oneose() {
             sub.close();
-            reject(new Error('End of stream: No metadata found for the given public key.'));
+            resolve(null);
           }
         }
       );
@@ -116,12 +125,81 @@ export class NostrService {
         [
           {
             kinds: [1],
-            authors: [this.publicKey],
           },
         ],
         {
-          onevent: (event) => {
+          onevent: (event: any) => {
             callback(event);
+          }
+        }
+      );
+    });
+  }
+
+  async getUsers(): Promise<User[]> {
+    await this.ensureRelaysConnected(); // Ensure relays are connected before fetching users
+    const pool = this.relayService.getPool();
+    const connectedRelays = this.relayService.getConnectedRelays();
+
+    if (connectedRelays.length === 0) {
+      return Promise.reject(new Error('No connected relays'));
+    }
+
+    return new Promise((resolve, reject) => {
+      const users: User[] = [];
+      const sub = pool.subscribeMany(
+        connectedRelays,
+        [
+          {
+            kinds: [0],
+          },
+        ],
+        {
+          onevent(event) {
+            try {
+              const content = JSON.parse(event.content);
+              const user: User = {
+                nostrPubKey: event.pubkey,
+                displayName: content.display_name,
+                picture: content.picture,
+                lastActivity: event.created_at
+              };
+              users.push(user);
+            } catch (error) {
+              console.error('Error parsing event content:', error);
+            }
+          },
+          oneose() {
+            sub.close();
+            users.sort((a, b) => b.lastActivity - a.lastActivity);
+            resolve(users);
+          }
+        }
+      );
+    });
+  }
+
+  subscribeToUserActivities(callback: (user: User) => void): void {
+    this.ensureRelaysConnected().then(() => {
+      const pool = this.relayService.getPool();
+      const connectedRelays = this.relayService.getConnectedRelays();
+      pool.subscribeMany(
+        connectedRelays,
+        [{ kinds: [1] }],
+        {
+          onevent: (event: any) => {
+            try {
+              const content = JSON.parse(event.content);
+              const user: User = {
+                nostrPubKey: event.pubkey,
+                displayName: content.display_name,
+                picture: content.picture,
+                lastActivity: event.created_at
+              };
+              callback(user);
+            } catch (error) {
+              console.error('Error parsing event content:', error);
+            }
           }
         }
       );

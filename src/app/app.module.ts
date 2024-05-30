@@ -23,7 +23,7 @@ import { NotificationsComponent } from './components/notifications/notifications
 import { BookmarksComponent } from './components/bookmarks/bookmarks.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { ExploreComponent } from './components/explore/explore.component';
-import { ProjectDetailsComponent } from './components/explore/project-details/project-details.component';
+import { ProjectDetailsComponent } from './components/project-details/project-details.component';
  
 @NgModule({
   declarations: [

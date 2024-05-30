@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NostrService } from '../../../services/nostr.service';
+import { NostrService } from '../../services/nostr.service';
 
 @Component({
   selector: 'app-project-details',
@@ -10,6 +10,8 @@ import { NostrService } from '../../../services/nostr.service';
 export class ProjectDetailsComponent implements OnInit {
   selectedProject: any = null;
   errorMessage: string = '';
+  isLoading: boolean = false;
+  isRelayConnected: boolean = false; // New state to check relay connection
 
   constructor(private route: ActivatedRoute, private nostrService: NostrService) { }
 
@@ -25,17 +27,25 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   async fetchProjectMetadata(nostrPubKey: string): Promise<void> {
+    this.isLoading = true; // Set loading state to true
     try {
       await this.nostrService.ensureRelaysConnected(); // Ensure relays are connected before fetching metadata
+      this.isRelayConnected = true; // Relay connection successful
       const metadata = await this.nostrService.fetchMetadata(nostrPubKey);
-      this.selectedProject = metadata;
+      if (metadata) {
+        this.selectedProject = metadata;
+      } else {
+        this.errorMessage = 'No metadata found for the given public key. Please check the public key and try again.';
+      }
     } catch (error: any) { // Explicitly typing error as any
       console.error('Error fetching metadata:', error);
-      if (error.message.includes('End of stream')) {
-        this.errorMessage = 'No metadata found for the given public key. Please check the public key and try again.';
+      if (!this.isRelayConnected) {
+        this.errorMessage = 'Unable to connect to relays. Please check your network connection.';
       } else {
         this.errorMessage = error.message || 'Error fetching project metadata. Please try again later.';
       }
+    } finally {
+      this.isLoading = false; // Set loading state to false
     }
   }
 }

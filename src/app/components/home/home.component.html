@@ -1,9 +1,20 @@
 <section id="page-home" class="h-entry section section-type-page">
   <div class="section-inner">
     <div class="section-main">
-
-      <p>Welcome to Angor Browse!</p>
-        
+      <div class="e-content article-entry" itemprop="articleBody">
+        <div class="truncate-text">
+          <div *ngIf="loading">Loading users...</div>
+          <div *ngIf="!loading && errorMessage">{{ errorMessage }}</div>
+          <div *ngIf="!loading && users.length > 0">
+            <ul>
+              <li *ngFor="let user of users" (click)="goToProjectDetails(user)">
+                <img width="50" height="50"  [src]="user.picture || 'assets/images/no-image.jpg'" (error)="user.picture='assets/images/no-image.jpg'" alt="{{ user.displayName }}">
+                <span>{{ user.displayName }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

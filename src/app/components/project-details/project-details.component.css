@@ -136,3 +136,38 @@
   .section-main {
     padding: 0 !important;
   }
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+  }
+  
+  .loading-spinner {
+    border: 16px solid var(--primary);
+    border-top: 16px solid var(--neut-L90);
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .error-message {
+    color: red;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .section-main {
+    padding: 0 !important;
+  }
+  
