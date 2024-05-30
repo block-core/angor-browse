@@ -13,7 +13,7 @@ export class SettingsComponent implements OnInit {
   relays: any[] = [];
   newRelayUrl: string = '';
   connectionStatus: string = '';
-  connectButtonText: string = 'Connect to Relays';
+  connectButtonText: string = 'Refresh Relays';
 
   constructor(private nostrService: NostrService, public dialog: MatDialog) {}
 
