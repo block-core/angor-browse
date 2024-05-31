@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
-import { NostrComponent } from './components/nostr/nostr.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { ExploreComponent } from './components/explore/explore.component';
 import { MessagesComponent } from './components/messages/messages.component';
@@ -12,7 +12,7 @@ import { ProjectDetailsComponent } from './components/project-details/project-de
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'nostr', component: NostrComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: 'projects/:id', component: ProjectDetailsComponent },
   { path: 'explore',component:ExploreComponent},
   { path: 'messages',component:MessagesComponent},

@@ -10,10 +10,8 @@
         </a>
       </nav>
       <nav id="main-nav">
-        <a class="main-nav-link" routerLink="/">Home</a>
-        <a class="main-nav-link" routerLink="/nostr">Nostr</a>
-        <a class="main-nav-link" routerLink="/explore">Explore</a>
-      </nav>
+         <a class="main-nav-link" routerLink="/profile">Profile</a>
+       </nav>
       <nav id="sub-nav">
         <app-theme></app-theme>
         <div id="nav-menu-btn" class="nav-icon" (click)="toggleDropdown()">
@@ -26,9 +24,7 @@
     </menu>
     <div id="nav-dropdown" [class.hidden]="isDropdownHidden">
       <div id="dropdown-link-list">
-        <a class="nav-dropdown-link" routerLink="/">Home</a>
-        <a class="nav-dropdown-link" routerLink="/nostr">Nostr</a>
-        <a class="nav-dropdown-link" routerLink="/projects">Projects</a>
+        <a class="nav-dropdown-link" routerLink="/profile">Profile</a>
       </div>
     </div>
   </div>

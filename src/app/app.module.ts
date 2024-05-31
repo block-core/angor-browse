@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { NostrComponent } from './components/nostr/nostr.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { HomeComponent } from './components/home/home.component';
 import { NostrService } from './services/nostr.service';
 import {
@@ -29,7 +29,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
-    NostrComponent,
+    ProfileComponent,
     HomeComponent,
     ThemeSwitcherComponent,
     ThemeColorComponent,

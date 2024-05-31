@@ -1,22 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { NostrService } from '../../services/nostr.service';
+ import { NostrEvent } from 'nostr-tools/pure';
 import * as secp256k1 from '@noble/secp256k1';
 import { sha256 } from '@noble/hashes/sha256';
+import { User } from '../../../models/user.model';
 
 @Component({
   selector: 'app-nostr',
-  templateUrl: './nostr.component.html',
-  styleUrls: ['./nostr.component.css'],
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css'],
 })
-export class NostrComponent implements OnInit {
+export class ProfileComponent implements OnInit {
   publicKey: string = '';
   secretKeyHex: string = '';
   eventContent: string = '';
   newRelayUrl: string = '';
   connectionStatus: string = '';
   connectButtonText: string = 'Connect to Relays';
-  events: any[] = [];
+  events: NostrEvent[] = [];
   relays: any[] = [];
+  followers: User[] = [];
+  following: User[] = [];
   nostrExtensionPublicKey: string = '';
   nostrPublicKey: string = '';
   nostrSignedEvent: any;
@@ -51,7 +55,6 @@ export class NostrComponent implements OnInit {
       this.nostrPublicKey = publicKey;
       this.metadata = metadata;
 
-      // Convert relays object to an array and add to the list of relays
       if (relays && typeof relays === 'object') {
         Object.keys(relays).forEach((relayUrl: string) => {
           this.nostrService.addRelay(relayUrl);
@@ -62,8 +65,28 @@ export class NostrComponent implements OnInit {
       this.isAuthenticated = true;
       this.accountType = 'extension';
       this.publicKey = publicKey;
+
+      this.fetchFollowersAndFollowing();
+      this.fetchEventsByAuthor();
     } catch (error) {
       console.error('Failed to connect to Nostr extension:', error);
+    }
+  }
+
+  async fetchFollowersAndFollowing() {
+    try {
+      this.followers = await this.nostrService.getFollowers(this.publicKey);
+      this.following = await this.nostrService.getFollowing(this.publicKey);
+    } catch (error) {
+      console.error('Failed to fetch followers and following:', error);
+    }
+  }
+
+  async fetchEventsByAuthor() {
+    try {
+      this.events = await this.nostrService.getEventsByAuthor(this.publicKey);
+    } catch (error) {
+      console.error('Failed to fetch events by author:', error);
     }
   }
 
@@ -79,6 +102,9 @@ export class NostrComponent implements OnInit {
 
     this.isAuthenticated = true;
     this.accountType = 'new';
+
+    this.fetchFollowersAndFollowing();
+    this.fetchEventsByAuthor();
   }
 
   loadNostrPublicKeyFromLocalStorage() {
@@ -90,6 +116,9 @@ export class NostrComponent implements OnInit {
         this.nostrPublicKey = publicKey;
         this.isAuthenticated = true;
         this.accountType = secretKeyHex ? 'new' : 'extension';
+
+        this.fetchFollowersAndFollowing();
+        this.fetchEventsByAuthor();
       }
       if (secretKeyHex) {
         this.secretKeyHex = secretKeyHex;
@@ -101,14 +130,11 @@ export class NostrComponent implements OnInit {
     try {
       const gt = globalThis as any;
       const relays = await gt.nostr.getRelays();
-      
-      // Convert relays object to an array and add to the list of relays
       if (relays && typeof relays === 'object') {
         Object.keys(relays).forEach((relayUrl: string) => {
           this.nostrService.addRelay(relayUrl);
         });
       }
-
       this.relays = this.nostrService.relayService.relays;
     } catch (error) {
       console.error('Failed to fetch public relays from extension:', error);

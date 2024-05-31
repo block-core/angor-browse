@@ -103,7 +103,7 @@ export class NostrService {
           oneose() {
             sub.close();
             resolve(null);
-          }
+          },
         }
       );
     });
@@ -137,7 +137,7 @@ export class NostrService {
         {
           onevent: (event: NostrEvent) => {
             callback(event);
-          }
+          },
         }
       );
     });
@@ -169,7 +169,7 @@ export class NostrService {
                 nostrPubKey: event.pubkey,
                 displayName: content.display_name,
                 picture: content.picture,
-                lastActivity: event.created_at
+                lastActivity: event.created_at,
               };
               users.push(user);
             } catch (error) {
@@ -180,7 +180,7 @@ export class NostrService {
             sub.close();
             users.sort((a, b) => b.lastActivity - a.lastActivity);
             resolve(users);
-          }
+          },
         }
       );
     });
@@ -201,13 +201,13 @@ export class NostrService {
                 nostrPubKey: event.pubkey,
                 displayName: content.display_name,
                 picture: content.picture,
-                lastActivity: event.created_at
+                lastActivity: event.created_at,
               };
               callback(user);
             } catch (error) {
               console.error('Error parsing event content:', error);
             }
-          }
+          },
         }
       );
     });
@@ -232,9 +232,10 @@ export class NostrService {
     if (connectedRelays.length === 0) {
       return Promise.reject(new Error('No connected relays'));
     }
+  console.log(this.publicKey);
   
     const filters: Filter[] = [
-      { kinds: [9735], "#p": [this.publicKey] }
+      { kinds: [3], "#p": [this.publicKey] }
     ];
   
     const notifications: NostrEvent[] = [];
@@ -269,6 +270,104 @@ export class NostrService {
       );
     });
   }
-  
-  
+  async getEventsByAuthor(pubkey: string): Promise<NostrEvent[]> {
+    await this.ensureRelaysConnected();
+    const pool = this.relayService.getPool();
+    const connectedRelays = this.relayService.getConnectedRelays();
+
+    if (connectedRelays.length === 0) {
+      return Promise.reject(new Error('No connected relays'));
+    }
+
+    const filters: Filter[] = [{ authors: [pubkey] }];
+
+    const events: NostrEvent[] = [];
+
+    return new Promise((resolve, reject) => {
+      const sub = pool.subscribeMany(
+        connectedRelays,
+        filters,
+        {
+          onevent: (event: NostrEvent) => {
+            events.push(event);
+          },
+          oneose() {
+            sub.close();
+            resolve(events);
+          },
+        }
+      );
+    });
+  }
+
+  async getFollowers(pubkey: string): Promise<User[]> {
+    await this.ensureRelaysConnected();
+    const pool = this.relayService.getPool();
+    const connectedRelays = this.relayService.getConnectedRelays();
+
+    if (connectedRelays.length === 0) {
+      return Promise.reject(new Error('No connected relays'));
+    }
+
+    const filters: Filter[] = [{ kinds: [3], '#p': [pubkey] }];
+    const followers: User[] = [];
+
+    return new Promise((resolve, reject) => {
+      const sub = pool.subscribeMany(
+        connectedRelays,
+        filters,
+        {
+          onevent: (event: NostrEvent) => {
+            try {
+              const pubkey = event.pubkey;
+              followers.push({ nostrPubKey: pubkey } as User);
+            } catch (error) {
+              console.error('Error parsing follower event:', error);
+            }
+          },
+          oneose() {
+            sub.close();
+            resolve(followers);
+          },
+        }
+      );
+    });
+  }
+
+  async getFollowing(pubkey: string): Promise<User[]> {
+    await this.ensureRelaysConnected();
+    const pool = this.relayService.getPool();
+    const connectedRelays = this.relayService.getConnectedRelays();
+
+    if (connectedRelays.length === 0) {
+      return Promise.reject(new Error('No connected relays'));
+    }
+
+    const filters: Filter[] = [{ kinds: [3], authors: [pubkey] }];
+    const following: User[] = [];
+
+    return new Promise((resolve, reject) => {
+      const sub = pool.subscribeMany(
+        connectedRelays,
+        filters,
+        {
+          onevent: (event: NostrEvent) => {
+            try {
+              const tags = event.tags.filter(tag => tag[0] === 'p');
+              tags.forEach(tag => {
+                const pubkey = tag[1];
+                following.push({ nostrPubKey: pubkey } as User);
+              });
+            } catch (error) {
+              console.error('Error parsing following event:', error);
+            }
+          },
+          oneose() {
+            sub.close();
+            resolve(following);
+          },
+        }
+      );
+    });
+  }
 }
