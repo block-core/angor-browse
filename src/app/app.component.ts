@@ -2,6 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Component, HostListener, Inject, PLATFORM_ID, ViewChild, OnInit } from '@angular/core';
 import { OverlayScrollbars } from 'overlayscrollbars';
  import { OverlayScrollbarsComponent } from 'overlayscrollbars-ngx';
+import { NotificationService } from './services/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ export class AppComponent implements OnInit {
   elementHidden = false;
   isDropdownHidden = true;
   useOverlayScrollbars = true;
+  unreadCount: number = 0;
   useBodyOverlayScrollbars: boolean | null = null;
   options = {
     scrollbars: {
@@ -23,13 +25,23 @@ export class AppComponent implements OnInit {
   @ViewChild('osRef', { read: OverlayScrollbarsComponent })
   osRef?: OverlayScrollbarsComponent;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object,private notificationService: NotificationService) { }
+
+
+
+
+ 
+ 
+
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.setInitialTheme();
       this.loadSettings();
       this.initBodyOverlayScrollbars();
+      this.notificationService.getUnreadCount().subscribe(count => {
+        this.unreadCount = count;
+      });
     }
   }
 

@@ -1,10 +1,17 @@
 import { Injectable } from '@angular/core';
-import { generateSecretKey, getPublicKey, finalizeEvent, verifyEvent } from 'nostr-tools';
+import {
+  generateSecretKey,
+  getPublicKey,
+  finalizeEvent,
+  verifyEvent,
+  Event as NostrEvent,
+} from 'nostr-tools/pure'; // Ensure correct path
 import { bytesToHex } from '@noble/hashes/utils';
 import { RelayService } from './relay.service';
+import { NotificationService } from './notification.service';
 import { User } from '../../models/user.model';
-import { Subject } from 'rxjs';
-import { StateService } from './state.service';
+import { Notification } from '../../models/notification.model';
+import { Filter } from 'nostr-tools';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +21,7 @@ export class NostrService {
   private publicKey: string;
   public relayService: RelayService;
 
-  constructor(relayService: RelayService, private stateService: StateService) {
+  constructor(relayService: RelayService, private notificationService: NotificationService) {
     this.secretKey = generateSecretKey();
     this.publicKey = getPublicKey(this.secretKey);
     this.relayService = relayService;
@@ -81,7 +88,7 @@ export class NostrService {
           },
         ],
         {
-          onevent(event) {
+          onevent(event: NostrEvent) {
             if (event.pubkey === pubkey && event.kind === 0) {
               try {
                 const content = JSON.parse(event.content);
@@ -116,7 +123,7 @@ export class NostrService {
     }
   }
 
-  subscribeToEvents(callback: (event: any) => void): void {
+  subscribeToEvents(callback: (event: NostrEvent) => void): void {
     this.ensureRelaysConnected().then(() => {
       const pool = this.relayService.getPool();
       const connectedRelays = this.relayService.getConnectedRelays();
@@ -128,7 +135,7 @@ export class NostrService {
           },
         ],
         {
-          onevent: (event: any) => {
+          onevent: (event: NostrEvent) => {
             callback(event);
           }
         }
@@ -155,7 +162,7 @@ export class NostrService {
           },
         ],
         {
-          onevent(event) {
+          onevent(event: NostrEvent) {
             try {
               const content = JSON.parse(event.content);
               const user: User = {
@@ -187,7 +194,7 @@ export class NostrService {
         connectedRelays,
         [{ kinds: [1] }],
         {
-          onevent: (event: any) => {
+          onevent: (event: NostrEvent) => {
             try {
               const content = JSON.parse(event.content);
               const user: User = {
@@ -216,4 +223,52 @@ export class NostrService {
       }
     });
   }
+
+  async getNotifications(): Promise<Notification[]> {
+    await this.ensureRelaysConnected();
+    const pool = this.relayService.getPool();
+    const connectedRelays = this.relayService.getConnectedRelays();
+  
+    if (connectedRelays.length === 0) {
+      return Promise.reject(new Error('No connected relays'));
+    }
+  
+    const filters: Filter[] = [
+      { kinds: [9735], "#p": [this.publicKey] }
+    ];
+  
+    const notifications: NostrEvent[] = [];
+  
+    return new Promise((resolve, reject) => {
+      const sub = pool.subscribeMany(
+        connectedRelays,
+        filters,
+        {
+          onevent: (event: NostrEvent) => {
+            notifications.push(event);
+          },
+          oneose: () => {
+            sub.close();
+            const notificationList: Notification[] = notifications.map((event: NostrEvent) => ({
+              id: event.id,
+              kind: event.kind,
+              pubkey: event.pubkey,
+              created_at: event.created_at,
+              content: event.content,
+              read: false,
+              tags: event.tags
+            }));
+  
+            notificationList.forEach(notification => {
+              this.notificationService.addNotification(notification);
+            });
+  
+            resolve(notificationList);
+          }
+        }
+      );
+    });
+  }
+  
+  
 }
