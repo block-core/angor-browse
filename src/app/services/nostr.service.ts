@@ -333,7 +333,40 @@ export class NostrService {
       );
     });
   }
+  async getKind4MessagesToMe(): Promise<NostrEvent[]> {
+    await this.ensureRelaysConnected();
+    const pool = this.relayService.getPool();
+    const connectedRelays = this.relayService.getConnectedRelays();
 
+    if (connectedRelays.length === 0) {
+      return Promise.reject(new Error('No connected relays'));
+    }
+
+    const filter1: Filter = {
+      kinds: [4],
+      '#p': [this.publicKey],
+      limit: 50,
+    };
+     
+
+    const events: NostrEvent[] = [];
+
+    return new Promise((resolve, reject) => {
+      const sub = pool.subscribeMany(
+        connectedRelays,
+        [filter1],
+        {
+          onevent: (event: NostrEvent) => {
+            events.push(event);
+          },
+          oneose() {
+            sub.close();
+            resolve(events);
+          },
+        }
+      );
+    });
+  }
   async getFollowing(pubkey: string): Promise<User[]> {
     await this.ensureRelaysConnected();
     const pool = this.relayService.getPool();

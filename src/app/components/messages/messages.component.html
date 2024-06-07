@@ -3,7 +3,29 @@
     <div class="section-inner">
       <div class="section-main">
   
-        <p>messages works!</p>
+        <div class="messages-container">
+          <div class="user-list">
+            <h3>Chat Users</h3>
+            <ul>
+              <li *ngFor="let user of chatUsers" (click)="onSelectUser(user)">
+                {{ user.displayName }}
+              </li>
+            </ul>
+          </div>
+          <div class="chat-window" *ngIf="selectedUser">
+            <h3>Chat with {{ selectedUser.displayName }}</h3>
+            <ul class="messages-list">
+              <li *ngFor="let message of messages">
+                {{ message.content }}
+              </li>
+            </ul>
+            <div class="message-input">
+              <input [(ngModel)]="newMessageContent" placeholder="Type a message..." />
+              <button (click)="sendMessage()">Send</button>
+            </div>
+          </div>
+        </div>
+        
           
       </div>
     </div>
