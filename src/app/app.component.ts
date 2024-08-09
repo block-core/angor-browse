@@ -1,7 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Component, HostListener, Inject, PLATFORM_ID, ViewChild, OnInit } from '@angular/core';
-import { OverlayScrollbars } from 'overlayscrollbars';
- import { OverlayScrollbarsComponent } from 'overlayscrollbars-ngx';
+
 import { NotificationService } from './services/notification.service';
 
 @Component({
@@ -22,24 +21,22 @@ export class AppComponent implements OnInit {
     },
   };
 
-  @ViewChild('osRef', { read: OverlayScrollbarsComponent })
-  osRef?: OverlayScrollbarsComponent;
+
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object,private notificationService: NotificationService) { }
 
 
 
 
- 
- 
+
+
 
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.setInitialTheme();
       this.loadSettings();
-      this.initBodyOverlayScrollbars();
-      this.notificationService.getUnreadCount().subscribe(count => {
+       this.notificationService.getUnreadCount().subscribe(count => {
         this.unreadCount = count;
       });
     }
@@ -52,17 +49,7 @@ export class AppComponent implements OnInit {
     document.documentElement.setAttribute('theme', theme);
   }
 
-  initBodyOverlayScrollbars() {
-    const theme = this.getLocalStorageItem('theme') === 'dark' ? 'os-theme-light' : 'os-theme-dark';
-    OverlayScrollbars(document.body, {
-      scrollbars: {
-        theme: theme,
-        clickScroll: true,
-        autoHide: "leave",
-        autoHideDelay: 800,
-      },
-    });
-  }
+
 
   loadSettings() {
     const theme = this.getLocalStorageItem('theme');
@@ -88,19 +75,9 @@ export class AppComponent implements OnInit {
   setTheme(theme: string) {
     document.documentElement.setAttribute('theme', theme);
     this.setLocalStorageItem('theme', theme);
-    this.updateOverlayScrollbarsTheme(theme);
-  }
+   }
 
-  updateOverlayScrollbarsTheme(theme: string) {
-    const osInstance = OverlayScrollbars(document.body);
-    if (osInstance) {
-      osInstance.options({
-        scrollbars: {
-          theme: theme === 'dark' ? 'os-theme-light' : 'os-theme-dark'
-        }
-      });
-    }
-  }
+
 
   enableBanner() {
     document.documentElement.setAttribute('showBanner', 'true');

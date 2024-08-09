@@ -25,6 +25,7 @@ import { MessagesComponent } from './components/messages/messages.component';
 import { ExploreComponent } from './components/explore/explore.component';
 import { ProjectDetailsComponent } from './components/project-details/project-details.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MouseMoveDirective } from './mouse-move.directive';
  
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MessagesComponent,
     ExploreComponent,
     ProjectDetailsComponent,
+    MouseMoveDirective,
   ],
   imports: [
     BrowserModule,

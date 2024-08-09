@@ -40,8 +40,8 @@ path{
   fill:var(--card-btn-icon);
 }
  .custom-dialog-container .mat-dialog-container {
-    border-radius: 10px;  
-    padding: 20px; 
+    border-radius: 10px;
+    padding: 20px;
   }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
@@ -76,4 +76,25 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 .auth-button:active, .action-button:active {
   background: var(--btn-text-active);
+}
+body::-webkit-scrollbar {
+  width: 8px;
+  background-color: transparent;
+}
+  body::-webkit-scrollbar-thumb {
+  background-color: rgba(87, 87, 87, 0.5);
+  border-radius: 5px;
+}
+
+body.idle::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+body {
+  overflow-y: scroll;
+  padding-right: 8px;
+}
+
+body.idle {
+  padding-right: 8px;
 }
